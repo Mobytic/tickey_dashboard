@@ -15,7 +15,8 @@ function useLocale() {
         if (locale !== i18n.language) {
             i18n.changeLanguage(formattedLang)
         }
-        dateLocales[formattedLang]()?.then(() => {
+
+        dateLocales[formattedLang]().then(() => {
             dayjs.locale(formattedLang)
         })
     }, [locale])

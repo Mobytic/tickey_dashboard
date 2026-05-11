@@ -4,14 +4,14 @@ import { SLICE_BASE_NAME } from './constants'
 export type UserState = {
     avatar?: string
     userName?: string
-    email?: string
+    mail?: string
     authority?: string[]
 }
 
 const initialState: UserState = {
     avatar: '',
     userName: '',
-    email: '',
+    mail: '',
     authority: [],
 }
 
@@ -21,7 +21,7 @@ const userSlice = createSlice({
     reducers: {
         setUser(state, action: PayloadAction<UserState>) {
             state.avatar = action.payload?.avatar
-            state.email = action.payload?.email
+            state.mail = action.payload?.mail
             state.userName = action.payload?.userName
             state.authority = action.payload?.authority
         },

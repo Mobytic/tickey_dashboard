@@ -44,7 +44,7 @@ function useAuth() {
                                 avatar: '',
                                 userName: 'Anonymous',
                                 authority: ['USER'],
-                                email: '',
+                                mail: '',
                             }
                         )
                     )
@@ -80,7 +80,7 @@ function useAuth() {
                                 avatar: '',
                                 userName: 'Anonymous',
                                 authority: ['USER'],
-                                email: '',
+                                mail: '',
                             }
                         )
                     )
@@ -109,7 +109,7 @@ function useAuth() {
             setUser({
                 avatar: '',
                 userName: '',
-                email: '',
+                mail: '',
                 authority: [],
             })
         )
