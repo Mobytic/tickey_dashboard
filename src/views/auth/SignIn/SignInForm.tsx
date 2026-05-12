@@ -94,7 +94,7 @@ const SignInForm = (props: SignInFormProps) => {
                                     type="mail"
                                     autoComplete="off"
                                     name="mail"
-                                    placeholder="Votre mail"
+                                    placeholder="E-mail"
                                     component={Input}
                                 />
                             </FormItem>
@@ -109,7 +109,7 @@ const SignInForm = (props: SignInFormProps) => {
                                 <Field
                                     autoComplete="off"
                                     name="password"
-                                    placeholder="Votre mot de passe"
+                                    placeholder="Mot de passe"
                                     component={PasswordInput}
                                 />
                             </FormItem>
@@ -119,10 +119,10 @@ const SignInForm = (props: SignInFormProps) => {
                                     name="rememberMe"
                                     component={Checkbox}
                                 >
-                                    Remember Me
+                                    Se souvenir de moi
                                 </Field>
                                 <ActionLink to={forgotPasswordUrl}>
-                                    Forgot Password?
+                                    Mot de passe oublié ?
                                 </ActionLink>
                             </div>
                             <Button

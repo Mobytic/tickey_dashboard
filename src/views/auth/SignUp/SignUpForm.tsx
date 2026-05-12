@@ -16,20 +16,24 @@ interface SignUpFormProps extends CommonProps {
 }
 
 type SignUpFormSchema = {
-    userName: string
+    firstname: string
+    lastname: string
+    companyName: string
     password: string
-    email: string
+    mail: string
 }
 
 const validationSchema = Yup.object().shape({
-    userName: Yup.string().required('Please enter your user name'),
-    email: Yup.string()
-        .email('Invalid email')
-        .required('Please enter your email'),
-    password: Yup.string().required('Please enter your password'),
+    firstname: Yup.string().required('Veuillez renseigner un prénom'),
+    lastname: Yup.string().required('Veuillez renseigner un nom'),
+    companyName: Yup.string().required("Veuillez renseigner l'entreprise"),
+    mail: Yup.string()
+        .email('Format de mail invalide')
+        .required('Merci de renseigner un mail'),
+    password: Yup.string().required('Veuillez renseigner le mot de passe'),
     confirmPassword: Yup.string().oneOf(
         [Yup.ref('password')],
-        'Your passwords do not match'
+        'Les mot de passe ne sont pas identiques'
     ),
 })
 
@@ -44,9 +48,9 @@ const SignUpForm = (props: SignUpFormProps) => {
         values: SignUpFormSchema,
         setSubmitting: (isSubmitting: boolean) => void
     ) => {
-        const { userName, password, email } = values
+        const { firstname, lastname, companyName, password, mail } = values
         setSubmitting(true)
-        const result = await signUp({ userName, password, email })
+        const result = await signUp({ firstname, lastname, companyName, password, mail })
 
         if (result?.status === 'failed') {
             setMessage(result.message)
@@ -64,10 +68,12 @@ const SignUpForm = (props: SignUpFormProps) => {
             )}
             <Formik
                 initialValues={{
-                    userName: 'admin1',
+                    firstname: '',
+                    lastname: '',
+                    companyName: '',
                     password: '123Qwe1',
                     confirmPassword: '123Qwe1',
-                    email: 'test@testmail.com',
+                    mail: 'test@testmail.com',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -82,33 +88,59 @@ const SignUpForm = (props: SignUpFormProps) => {
                     <Form>
                         <FormContainer>
                             <FormItem
-                                label="User Name"
-                                invalid={errors.userName && touched.userName}
-                                errorMessage={errors.userName}
+                                label="Prénom"
+                                invalid={errors.firstname && touched.firstname}
+                                errorMessage={errors.firstname}
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
-                                    name="userName"
-                                    placeholder="User Name"
+                                    name="firstname"
+                                    placeholder="Prénom"
+                                    component={Input}
+                                />
+                            </FormItem>
+                            <FormItem
+                                label="Nom"
+                                invalid={errors.lastname && touched.lastname}
+                                errorMessage={errors.lastname}
+                            >
+                                <Field
+                                    type="text"
+                                    autoComplete="off"
+                                    name="lastname"
+                                    placeholder="Nom"
+                                    component={Input}
+                                />
+                            </FormItem>
+                            <FormItem
+                                label="Entreprise"
+                                invalid={errors.companyName && touched.companyName}
+                                errorMessage={errors.companyName}
+                            >
+                                <Field
+                                    type="text"
+                                    autoComplete="off"
+                                    name="companyName"
+                                    placeholder="Entreprise"
                                     component={Input}
                                 />
                             </FormItem>
                             <FormItem
                                 label="Email"
-                                invalid={errors.email && touched.email}
-                                errorMessage={errors.email}
+                                invalid={errors.mail && touched.mail}
+                                errorMessage={errors.mail}
                             >
                                 <Field
                                     type="email"
                                     autoComplete="off"
-                                    name="email"
+                                    name="mail"
                                     placeholder="Email"
                                     component={Input}
                                 />
                             </FormItem>
                             <FormItem
-                                label="Password"
+                                label="Mot de passe"
                                 invalid={errors.password && touched.password}
                                 errorMessage={errors.password}
                             >
@@ -120,7 +152,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 />
                             </FormItem>
                             <FormItem
-                                label="Confirm Password"
+                                label="Confirmation de mot de passe"
                                 invalid={
                                     errors.confirmPassword &&
                                     touched.confirmPassword
