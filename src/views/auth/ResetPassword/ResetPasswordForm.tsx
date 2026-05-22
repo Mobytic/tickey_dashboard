@@ -23,7 +23,7 @@ type ResetPasswordFormSchema = {
 }
 
 const validationSchema = Yup.object().shape({
-    password: Yup.string().required('Please enter your password'),
+    password: Yup.string().required('Veuillez entrer votre mot de passe'),
     confirmPassword: Yup.string().oneOf(
         [Yup.ref('password')],
         'Your passwords do not match'
@@ -69,14 +69,14 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
             <div className="mb-6">
                 {resetComplete ? (
                     <>
-                        <h3 className="mb-1">Reset done</h3>
-                        <p>Your password has been successfully reset</p>
+                        <h3 className="mb-1">Réinitialisation faites.</h3>
+                        <p>Votre mot de passe a été réinitialisé.</p>
                     </>
                 ) : (
                     <>
-                        <h3 className="mb-1">Set new password</h3>
+                        <h3 className="mb-1">Entrez votre nouveau mot de passe.</h3>
                         <p>
-                            Your new password must different to previos password
+                            Votre nouveau mot de passe doit être différent.
                         </p>
                     </>
                 )}
@@ -106,7 +106,7 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
                             {!resetComplete ? (
                                 <>
                                     <FormItem
-                                        label="Password"
+                                        label="Mot de passe"
                                         invalid={
                                             errors.password && touched.password
                                         }
@@ -115,12 +115,12 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
                                         <Field
                                             autoComplete="off"
                                             name="password"
-                                            placeholder="Password"
+                                            placeholder="Mot de passe"
                                             component={PasswordInput}
                                         />
                                     </FormItem>
                                     <FormItem
-                                        label="Confirm Password"
+                                        label="Confirmation de mot de passe"
                                         invalid={
                                             errors.confirmPassword &&
                                             touched.confirmPassword
@@ -130,7 +130,7 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
                                         <Field
                                             autoComplete="off"
                                             name="confirmPassword"
-                                            placeholder="Confirm Password"
+                                            placeholder="Confirmation de mot de passe"
                                             component={PasswordInput}
                                         />
                                     </FormItem>
@@ -152,13 +152,13 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
                                     type="button"
                                     onClick={onContinue}
                                 >
-                                    Continue
+                                    Continuer
                                 </Button>
                             )}
 
                             <div className="mt-4 text-center">
-                                <span>Back to </span>
-                                <ActionLink to={signInUrl}>Sign in</ActionLink>
+                                <span>Retour à</span>
+                                <ActionLink to={signInUrl}>se connecter</ActionLink>
                             </div>
                         </FormContainer>
                     </Form>

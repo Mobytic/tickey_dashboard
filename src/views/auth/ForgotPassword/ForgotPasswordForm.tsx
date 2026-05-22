@@ -21,7 +21,7 @@ type ForgotPasswordFormSchema = {
 }
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string().required('Please enter your email'),
+    email: Yup.string().required('Veuillez entrer votre mail'),
 })
 
 const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
@@ -56,18 +56,16 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
             <div className="mb-6">
                 {emailSent ? (
                     <>
-                        <h3 className="mb-1">Check your email</h3>
+                        <h3 className="mb-1">Vérifiez vos mails.</h3>
                         <p>
-                            We have sent a password recovery instruction to your
-                            email
+                            Nous vous avons envoyer un mail pour réinitialiser votre mot de passe.
                         </p>
                     </>
                 ) : (
                     <>
-                        <h3 className="mb-1">Forgot Password</h3>
+                        <h3 className="mb-1">Mot de passe oublié</h3>
                         <p>
-                            Please enter your email address to receive a
-                            verification code
+                            Veuillez entrer votre mail afin de recevoir un code de vérification.
                         </p>
                     </>
                 )}
@@ -116,8 +114,8 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
                                 {emailSent ? 'Resend Email' : 'Send Email'}
                             </Button>
                             <div className="mt-4 text-center">
-                                <span>Back to </span>
-                                <ActionLink to={signInUrl}>Sign in</ActionLink>
+                                <span>Retour à </span>
+                                <ActionLink to={signInUrl}>se connecter</ActionLink>
                             </div>
                         </FormContainer>
                     </Form>
