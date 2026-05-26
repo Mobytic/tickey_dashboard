@@ -9,6 +9,7 @@ import type {
     UpdateProfileRequest,
     ProfileResponse,
     SignOutResponse,
+    UserListResponse,
 } from '@/@types/auth'
 import type { MessageResponse } from '@/@types/common'
 
@@ -56,5 +57,12 @@ export async function apiAuthUpdate(id: number, data: UpdateProfileRequest) {
         url: `auth/update/${id}`,
         method: 'patch',
         data,
+    })
+}
+
+export async function apiUserIndex() {
+    return ApiService.fetchData<UserListResponse>({
+        url: 'auth/users',
+        method: 'get',
     })
 }

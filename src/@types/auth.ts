@@ -65,3 +65,5 @@ export type UpdateProfileRequest = {
 }
 
 export type ProfileResponse = User
+
+export type UserListResponse = User[]
