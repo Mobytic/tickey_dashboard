@@ -1,3 +1,17 @@
+export type User = {
+    id: number
+    firstname: string
+    lastname: string
+    mail: string
+    companyName: string
+    createdAt: string
+    updatedAt: string
+    websites?: {
+        id: number
+        url: string
+    }[]
+}
+
 export type SignInCredential = {
     mail: string
     password: string
@@ -12,6 +26,7 @@ export type SignInResponse = {
         role: string
         mail: string
     }
+    message: string
 }
 
 export type SignUpResponse = SignInResponse
@@ -28,6 +43,25 @@ export type ForgotPassword = {
     mail: string
 }
 
+export type SignOutResponse = {
+    message: string
+}
+
 export type ResetPassword = {
     password: string
 }
+
+export type UpdateProfileRequest = {
+    firstname?: string
+    lastname?: string
+    mail?: string
+    password?: string
+    companyName?: string
+    urls?: {
+        id?: number
+        url: string
+    }[]
+    message: string
+}
+
+export type ProfileResponse = User

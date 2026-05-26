@@ -16,3 +16,13 @@ export type TableQueries = {
         key: string | number
     }
 }
+
+export type MessageResponse = {
+    message: string
+}
+
+export type ErrorResponse = {
+    status: string
+    message: string
+    errors?: any[]
+}

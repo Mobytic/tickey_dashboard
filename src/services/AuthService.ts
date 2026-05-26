@@ -6,7 +6,11 @@ import type {
     ResetPassword,
     SignInResponse,
     SignUpResponse,
+    UpdateProfileRequest,
+    ProfileResponse,
+    SignOutResponse,
 } from '@/@types/auth'
+import type { MessageResponse } from '@/@types/common'
 
 export async function apiSignIn(data: SignInCredential) {
     return ApiService.fetchData<SignInResponse>({
@@ -25,7 +29,7 @@ export async function apiSignUp(data: SignUpCredential) {
 }
 
 export async function apiSignOut() {
-    return ApiService.fetchData({
+    return ApiService.fetchData<SignOutResponse>({
         url: 'auth/logout',
         method: 'post',
     })
@@ -43,6 +47,14 @@ export async function apiResetPassword(data: ResetPassword) {
     return ApiService.fetchData({
         url: 'auth/reset-password',
         method: 'post',
+        data,
+    })
+}
+
+export async function apiAuthUpdate(id: number, data: UpdateProfileRequest) {
+    return ApiService.fetchData<ProfileResponse>({
+        url: `auth/update/${id}`,
+        method: 'patch',
         data,
     })
 }
