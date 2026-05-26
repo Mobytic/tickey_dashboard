@@ -1,19 +1,21 @@
 import {
-    HiOutlineColorSwatch,
     HiOutlineDesktopComputer,
-    HiOutlineTemplate,
-    HiOutlineViewGridAdd,
     HiOutlineHome,
+    HiOutlineViewBoards,
+    HiOutlineTable,
+    HiOutlineUserAdd,
+    HiOutlineViewGridAdd,
 } from 'react-icons/hi'
 
 export type NavigationIcons = Record<string, JSX.Element>
 
 const navigationIcon: NavigationIcons = {
     home: <HiOutlineHome />,
-    singleMenu: <HiOutlineViewGridAdd />,
-    collapseMenu: <HiOutlineTemplate />,
-    groupSingleMenu: <HiOutlineDesktopComputer />,
-    groupCollapseMenu: <HiOutlineColorSwatch />,
+    computer: <HiOutlineDesktopComputer />,
+    kanban : <HiOutlineViewBoards />,
+    list : <HiOutlineTable />,
+    userAdd : <HiOutlineUserAdd />,
+    ticketAdd : <HiOutlineViewGridAdd />,
 }
 
 export default navigationIcon
