@@ -62,7 +62,7 @@ const navigationConfig: NavigationTree[] = [
         authority: [],
         subMenu: [
             {
-                key: 'groupMenu.single',
+                key: 'userGroup.list',
                 path: '/users',
                 title: 'Liste utilisateurs',
                 icon: 'list',
@@ -71,7 +71,7 @@ const navigationConfig: NavigationTree[] = [
                 subMenu: [],
             },
             {
-                key: 'groupMenu.single',
+                key: 'userGroup.create',
                 path: '/users/create',
                 title: 'Créer un utilisateur',
                 icon: 'userAdd',

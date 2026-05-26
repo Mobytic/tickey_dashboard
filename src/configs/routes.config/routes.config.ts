@@ -11,47 +11,36 @@ export const protectedRoutes = [
         component: lazy(() => import('@/views/Home')),
         authority: [],
     },
-    /** Example purpose only, please remove */
     {
-        key: 'singleMenuItem',
-        path: '/single-menu-view',
-        component: lazy(() => import('@/views/demo/SingleMenuView')),
+        key: 'ticketsGroup.list',
+        path: '/tickets',
+        component: lazy(() => import('@/views/ticket/TicketIndex')),
         authority: [],
     },
     {
-        key: 'collapseMenu.item1',
-        path: '/collapse-menu-item-view-1',
-        component: lazy(() => import('@/views/demo/CollapseMenuItemView1')),
+        key: 'ticketsGroup.create',
+        path: '/tickets/create',
+        component: lazy(() => import('@/views/ticket/TicketCreate')),
         authority: [],
     },
     {
-        key: 'collapseMenu.item2',
-        path: '/collapse-menu-item-view-2',
-        component: lazy(() => import('@/views/demo/CollapseMenuItemView2')),
+        key: 'userGroup.list',
+        path: '/users',
+        component: lazy(() => import('@/views/auth/index/Index')),
         authority: [],
     },
     {
-        key: 'groupMenu.single',
-        path: '/group-single-menu-item-view',
-        component: lazy(() =>
-            import('@/views/demo/GroupSingleMenuItemView')
-        ),
+        key: 'userGroup.create',
+        path: '/users/create',
+        component: lazy(() => import('@/views/auth/SignUp/SignUp')),
         authority: [],
     },
     {
-        key: 'groupMenu.collapse.item1',
-        path: '/group-collapse-menu-item-view-1',
-        component: lazy(() =>
-            import('@/views/demo/GroupCollapseMenuItemView1')
-        ),
+        key: 'paramGroup.index',
+        path: '/param',
+        component: lazy(() => import('@/views/param/Param')),
         authority: [],
     },
-    {
-        key: 'groupMenu.collapse.item2',
-        path: '/group-collapse-menu-item-view-2',
-        component: lazy(() =>
-            import('@/views/demo/GroupCollapseMenuItemView2')
-        ),
-        authority: [],
-    },
+    
+    
 ]

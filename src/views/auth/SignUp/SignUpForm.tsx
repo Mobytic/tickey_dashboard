@@ -174,12 +174,8 @@ const SignUpForm = (props: SignUpFormProps) => {
                             >
                                 {isSubmitting
                                     ? 'Creating Account...'
-                                    : 'Sign Up'}
+                                    : 'Créer un compte'}
                             </Button>
-                            <div className="mt-4 text-center">
-                                <span>Already have an account? </span>
-                                <ActionLink to={signInUrl}>Sign in</ActionLink>
-                            </div>
                         </FormContainer>
                     </Form>
                 )}
