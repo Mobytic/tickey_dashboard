@@ -20,7 +20,7 @@ function useAuth() {
     const query = useQuery()
 
     const { token, signedIn } = useAppSelector((state) => state.auth.session)
-
+    const user = useAppSelector((state) => state.auth.user)
     const signIn = async (
         values: SignInCredential
     ): Promise<{ status: Status; message: string } | undefined> => {
@@ -106,6 +106,7 @@ function useAuth() {
         signIn,
         signUp,
         signOut,
+        user,
     }
 }
 
