@@ -20,6 +20,7 @@ type SignUpFormSchema = {
     lastname: string
     companyName: string
     password: string
+    confirmPassword: string
     mail: string
 }
 
@@ -48,9 +49,9 @@ const SignUpForm = (props: SignUpFormProps) => {
         values: SignUpFormSchema,
         setSubmitting: (isSubmitting: boolean) => void
     ) => {
-        const { firstname, lastname, companyName, password, mail } = values
+        const { firstname, lastname, companyName, password, confirmPassword, mail } = values
         setSubmitting(true)
-        const result = await signUp({ firstname, lastname, companyName, password, mail })
+        const result = await signUp({ firstname, lastname, companyName, password, mail, passwordConfirmation: confirmPassword, })
 
         if (result?.status === 'failed') {
             setMessage(result.message)
@@ -147,7 +148,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 <Field
                                     autoComplete="off"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder="Mot de passe"
                                     component={PasswordInput}
                                 />
                             </FormItem>
@@ -162,7 +163,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 <Field
                                     autoComplete="off"
                                     name="confirmPassword"
-                                    placeholder="Confirm Password"
+                                    placeholder="Confirmation du mot de passe"
                                     component={PasswordInput}
                                 />
                             </FormItem>

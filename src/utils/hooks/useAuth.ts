@@ -42,12 +42,15 @@ function useAuth() {
                 }
                 const redirectUrl = query.get(REDIRECT_URL_KEY)
                 navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
-                return { status: 'success', message: '' }
+                return { status: 'success', message: 'Bienvenue !' }
             }
         } catch (errors: any) {
+            const adonisError = errors?.response?.data?.errors?.[0]?.message
+            const message = adonisError || errors?.response?.data?.message || errors.toString()
+            
             return {
                 status: 'failed',
-                message: errors?.response?.data?.message || errors.toString(),
+                message,
             }
         }
     }
@@ -57,22 +60,7 @@ function useAuth() {
             const resp = await apiSignUp(values)
             if (resp.data) {
                 const { token, user } = resp.data
-                dispatch(signInSuccess(token))
-                if (user) {
-                    dispatch(
-                        setUser({
-                            firstname: user.firstname,
-                            lastname: user.lastname,
-                            companyName: user.companyName,
-                            mail: user.mail,
-                            // Même traduction ici
-                            authority: [user.role],
-                        })
-                    )
-                }
-                const redirectUrl = query.get(REDIRECT_URL_KEY)
-                navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
-                return { status: 'success', message: '' }
+                return { status: 'success', message: 'Compte créé avec succès' }
             }
         } catch (errors: any) {
             return {
