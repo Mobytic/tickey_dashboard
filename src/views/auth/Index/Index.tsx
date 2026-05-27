@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Table from '@/components/ui/Table'
 import {
     flexRender,
@@ -9,31 +9,8 @@ import {
 import type { ColumnDef, ColumnSort } from '@tanstack/react-table'
 import type { User } from '@/@types/auth'
 import { apiUserIndex } from '@/services/authService'
-
-
-const columns: ColumnDef<User>[] = [
-    {
-        header: 'Prénom',
-        accessorKey: 'firstname',
-    },
-    {
-        header: 'Nom',
-        accessorKey: 'lastname',
-    },
-    {
-        header: 'Entreprise',
-        accessorKey: 'companyName',
-    },
-    {
-        header: 'Adresse Mail',
-        accessorKey: 'mail',
-    },
-    {
-        header: 'Sites internet',
-        accessorKey: 'websites.url',
-    },
-]
-
+import Dialog from '@/components/ui/Dialog'
+import SignUpForm from '@/views/auth/SignUp/SignUpForm'
 
 const { Tr, Th, Td, THead, TBody, Sorter } = Table
 
@@ -41,17 +18,72 @@ const UserIndex = () => {
     const [sorting, setSorting] = useState<ColumnSort[]>([])
     const [data, setData] = useState<User[]>([])
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await apiUserIndex()
-                setData(response.data)
-            } catch (error) {
-                console.error('Erreur lors de la récupération des utilisateurs', error)
-            }
+    // States pour la modale
+    const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    const [selectedUser, setSelectedUser] = useState<User | null>(null)
+
+    const openDialog = (user: User) => {
+        setSelectedUser(user)
+        setDialogIsOpen(true)
+    }
+
+    const closeDialog = () => {
+        setDialogIsOpen(false)
+        setSelectedUser(null)
+        fetchUsers()
+    }
+
+    const fetchUsers = async () => {
+        try {
+            const response = await apiUserIndex()
+            setData(response.data)
+        } catch (error) {
+            console.error('Erreur lors de la récupération des utilisateurs', error)
         }
+    }
+
+    useEffect(() => {
         fetchUsers()
     }, [])
+
+
+    const columns = useMemo<ColumnDef<User>[]>(() => [
+        {
+            header: 'Prénom',
+            accessorKey: 'firstname',
+        },
+        {
+            header: 'Nom',
+            accessorKey: 'lastname',
+        },
+        {
+            header: 'Entreprise',
+            accessorKey: 'companyName',
+        },
+        {
+            header: 'Adresse Mail',
+            accessorKey: 'mail',
+        },
+        {
+            header: 'Sites internet',
+            accessorKey: 'websites.url',
+        },
+        {
+            header: 'Actions',
+            id: 'actions',
+            cell: (props) => {
+                const user = props.row.original;
+                return (
+                    <button
+                        className="text-blue-500 hover:text-blue-700 font-semibold"
+                        onClick={() => openDialog(user)}
+                    >
+                        Modifier
+                    </button>
+                );
+            },
+        },
+    ], [])
 
     const table = useReactTable({
         data,
@@ -66,7 +98,7 @@ const UserIndex = () => {
 
     return (
         <>
-        <h3>Liste des utilisateurs</h3>
+            <h3>Liste des utilisateurs</h3>
             <Table>
                 <THead>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -128,6 +160,22 @@ const UserIndex = () => {
                         })}
                 </TBody>
             </Table>
+            
+            <Dialog
+                isOpen={dialogIsOpen}
+                onClose={closeDialog}
+                onRequestClose={closeDialog}
+            >
+                <div className="flex flex-col h-full justify-between">
+                    <h5 className="mb-4">Modifier l'utilisateur</h5>
+                    <div className="max-h-[70vh] overflow-y-auto">
+                        <SignUpForm 
+                            initialData={selectedUser} 
+                            onSuccess={closeDialog}
+                        />
+                    </div>
+                </div>
+            </Dialog>
         </>
     )
 }

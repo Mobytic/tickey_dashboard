@@ -62,7 +62,7 @@ export type UpdateProfileRequest = {
         id?: number
         url: string
     }[]
-    message: string
+    message?: string
 }
 
 export type ProfileResponse = User
