@@ -1,13 +1,11 @@
 export type TicketStatus = {
     id: number
-    label: string
+    name: string
     color?: string
-    createdAt: string
-    updatedAt: string
 }
 
 export type TicketStatusRequest = {
-    label: string
+    name: string
     color?: string
 }
 

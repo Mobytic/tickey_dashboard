@@ -1,12 +1,11 @@
 export type Category = {
     id: number
-    label: string
-    createdAt: string
-    updatedAt: string
+    name: string
 }
 
 export type CategoryRequest = {
-    label: string
+    id?: number
+    name: string
 }
 
 export type CategoryResponse = {

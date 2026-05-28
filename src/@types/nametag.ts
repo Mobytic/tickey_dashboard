@@ -1,12 +1,10 @@
 export type Nametag = {
     id: number
-    label: string
-    createdAt: string
-    updatedAt: string
+    name: string
 }
 
 export type NametagRequest = {
-    label: string
+    name: string
 }
 
 export type NametagResponse = {

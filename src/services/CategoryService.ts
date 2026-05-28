@@ -1,5 +1,6 @@
 import ApiService from './ApiService'
 import type {
+    Category,
     CategoryRequest,
     CategoryResponse,
     CategoryListResponse
