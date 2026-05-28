@@ -17,8 +17,6 @@ const { Tr, Th, Td, THead, TBody, Sorter } = Table
 const UserIndex = () => {
     const [sorting, setSorting] = useState<ColumnSort[]>([])
     const [data, setData] = useState<User[]>([])
-
-    // States pour la modale
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
@@ -66,7 +64,28 @@ const UserIndex = () => {
         },
         {
             header: 'Sites internet',
-            accessorKey: 'websites.url',
+            id: 'websites',
+            cell: (props) => {
+                const websites = props.row.original.websites;
+                if (!websites || websites.length === 0) {
+                    return <span className="text-gray-400">-</span>;
+                }
+                return (
+                    <div className="flex flex-col gap-1">
+                        {websites.map((site, index) => (
+                            <a 
+                                key={index} 
+                                href={site.url} 
+                                target="_blank" 
+                                rel="noreferrer"
+                                className="text-blue-500 hover:text-blue-700 hover:underline text-sm"
+                            >
+                                {site.url}
+                            </a>
+                        ))}
+                    </div>
+                );
+            },
         },
         {
             header: 'Actions',

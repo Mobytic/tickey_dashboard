@@ -38,6 +38,9 @@ export type SignUpCredential = {
     mail: string
     password: string
     passwordConfirmation: string
+    urls?: {
+        url?: string
+    }[]
 }
 
 export type ForgotPassword = {
@@ -59,8 +62,7 @@ export type UpdateProfileRequest = {
     password?: string
     companyName?: string
     urls?: {
-        id?: number
-        url: string
+        url?: string
     }[]
     message?: string
 }
