@@ -1,5 +1,7 @@
 const TicketIndex = () => {
-    return <div>Ticket</div>
+    return <div>
+        <h3>Liste des tickets</h3>
+        </div>
 }
 
 export default TicketIndex

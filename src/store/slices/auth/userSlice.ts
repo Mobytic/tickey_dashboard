@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { SLICE_BASE_NAME } from './constants'
+import { UserRole } from '@/@types/auth'
 
 export type UserState = {
     firstname?: string
     lastname?: string
     companyName?: string
     mail?: string
-    authority?: string[]
+    role?: UserRole
+    authority?: UserRole[]
 }
 
 const initialState: UserState = {
@@ -14,6 +16,7 @@ const initialState: UserState = {
     lastname: '',
     companyName: '',
     mail: '',
+    role: undefined,
     authority: [],
 }
 
@@ -26,7 +29,16 @@ const userSlice = createSlice({
             state.lastname = action.payload?.lastname
             state.companyName = action.payload?.companyName
             state.mail = action.payload?.mail
-            state.authority = action.payload?.authority
+            state.role = action.payload?.role
+            if (action.payload?.role) {
+                state.authority = [action.payload.role]
+            } 
+            else if (action.payload?.authority) {
+                state.authority = action.payload.authority
+            } 
+            else {
+                state.authority = []
+            }
         },
     },
 })

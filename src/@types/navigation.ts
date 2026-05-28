@@ -1,3 +1,5 @@
+import {UserRole} from './auth'
+
 export interface NavigationTree {
     key: string
     path: string
@@ -5,6 +7,6 @@ export interface NavigationTree {
     title: string
     icon: string
     type: 'title' | 'collapse' | 'item'
-    authority: string[]
+    authority: UserRole[]
     subMenu: NavigationTree[]
 }

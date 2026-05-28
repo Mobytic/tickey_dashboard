@@ -4,6 +4,7 @@ import {
     NAV_ITEM_TYPE_COLLAPSE
 } from '@/constants/navigation.constant'
 import type { NavigationTree } from '@/@types/navigation'
+import {UserRole} from '@/@types/auth'
 
 const navigationConfig: NavigationTree[] = [
     {
@@ -11,15 +12,6 @@ const navigationConfig: NavigationTree[] = [
         path: '/home',
         title: 'Home',
         icon: 'home',
-        type: NAV_ITEM_TYPE_ITEM,
-        authority: [],
-        subMenu: [],
-    },
-    {
-        key: 'kanban',
-        path: '/single-menu-view',
-        title: 'Kanban',
-        icon: 'kanban',
         type: NAV_ITEM_TYPE_ITEM,
         authority: [],
         subMenu: [],
@@ -59,7 +51,7 @@ const navigationConfig: NavigationTree[] = [
         title: 'Utilisateurs',
         icon: '',
         type: NAV_ITEM_TYPE_TITLE,
-        authority: [],
+        authority: [UserRole.admin],
         subMenu: [
             {
                 key: 'userGroup.list',
@@ -85,16 +77,34 @@ const navigationConfig: NavigationTree[] = [
     {
         key: 'paramGroup',
         path: '',
-        title: 'Paramètres',
-        icon: '',
+        title: 'Maintenance',
+        icon: 'cog',
         type: NAV_ITEM_TYPE_TITLE,
-        authority: [],
+        authority: [UserRole.admin],
         subMenu: [
             {
-                key: 'paramGroup.index',
-                path: '/param',
-                title: 'Créer, modifier, supprimer',
-                icon: 'computer',
+                key: 'paramGroup.nametag',
+                path: '/param/nametag',
+                title: 'Gérer les nametags',
+                icon: 'nametag',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: [],
+            }, 
+            {
+                key: 'paramGroup.status',
+                path: '/param/status',
+                title: 'Gérer les statuts',
+                icon: 'status',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: [],
+            }, 
+            {
+                key: 'paramGroup.category',
+                path: '/param/category',
+                title: 'Gérer les catégories',
+                icon: 'category',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
                 subMenu: [],

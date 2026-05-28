@@ -36,9 +36,21 @@ export const protectedRoutes = [
         authority: [],
     },
     {
-        key: 'paramGroup.index',
-        path: '/param',
-        component: lazy(() => import('@/views/param/Param')),
+        key: 'paramGroup.nametag',
+        path: '/param/nametag',
+        component: lazy(() => import('@/views/nametag/Nametag')),
+        authority: [],
+    },
+    {
+        key: 'paramGroup.status',
+        path: '/param/status',
+        component: lazy(() => import('@/views/status/Status')),
+        authority: [],
+    },
+    {
+        key: 'paramGroup.category',
+        path: '/param/category',
+        component: lazy(() => import('@/views/category/Category')),
         authority: [],
     },
     

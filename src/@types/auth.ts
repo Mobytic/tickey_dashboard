@@ -1,8 +1,14 @@
+export enum UserRole {
+    admin = 'admin',
+    client = 'client',
+}
+
 export type User = {
     id: number
     firstname: string
     lastname: string
     mail: string
+    role: UserRole
     companyName: string
     createdAt: string
     updatedAt: string
@@ -23,7 +29,7 @@ export type SignInResponse = {
         firstname: string
         lastname: string
         companyName: string
-        role: string
+        role: UserRole
         mail: string
     }
     message: string
