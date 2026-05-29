@@ -66,8 +66,8 @@ const SignInForm = (props: SignInFormProps) => {
             )}
             <Formik
                 initialValues={{
-                    mail: 'laura@test.com',
-                    password: 'mon_super_password',
+                    mail: '',
+                    password: '',
                     rememberMe: true,
                 }}
                 validationSchema={validationSchema}
@@ -94,12 +94,11 @@ const SignInForm = (props: SignInFormProps) => {
                                     type="mail"
                                     autoComplete="off"
                                     name="mail"
-                                    placeholder="E-mail"
                                     component={Input}
                                 />
                             </FormItem>
                             <FormItem
-                                label="Password"
+                                label="Mot de passe"
                                 invalid={
                                     (errors.password &&
                                         touched.password) as boolean
@@ -109,7 +108,6 @@ const SignInForm = (props: SignInFormProps) => {
                                 <Field
                                     autoComplete="off"
                                     name="password"
-                                    placeholder="Mot de passe"
                                     component={PasswordInput}
                                 />
                             </FormItem>
@@ -131,7 +129,7 @@ const SignInForm = (props: SignInFormProps) => {
                                 variant="solid"
                                 type="submit"
                             >
-                                {isSubmitting ? 'Signing in...' : 'Sign In'}
+                                {isSubmitting ? 'Connexion en cours...' : 'Connexion'}
                             </Button>
                         </FormContainer>
                     </Form>

@@ -113,7 +113,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 invalid={Boolean(errors.firstname && touched.firstname)}
                                 errorMessage={errors.firstname as string}
                             >
-                                <Field type="text" autoComplete="off" name="firstname" placeholder="Prénom" component={Input} />
+                                <Field type="text" autoComplete="off" name="firstname" component={Input} />
                             </FormItem>
                             
                             <FormItem
@@ -121,7 +121,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 invalid={Boolean(errors.lastname && touched.lastname)}
                                 errorMessage={errors.lastname as string}
                             >
-                                <Field type="text" autoComplete="off" name="lastname" placeholder="Nom" component={Input} />
+                                <Field type="text" autoComplete="off" name="lastname" component={Input} />
                             </FormItem>
                             
                             <FormItem
@@ -129,7 +129,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 invalid={Boolean(errors.companyName && touched.companyName)}
                                 errorMessage={errors.companyName as string}
                             >
-                                <Field type="text" autoComplete="off" name="companyName" placeholder="Entreprise" component={Input} />
+                                <Field type="text" autoComplete="off" name="companyName" component={Input} />
                             </FormItem>
                            
                            <div className="mb-4">
@@ -171,7 +171,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                             type="button"
                                             size="sm"
                                             onClick={() => arrayHelpers.push({ url: '' })}>
-                                            + Ajouter un site web
+                                            + Ajouter
                                         </Button>
                                     </div>
                                 )}
@@ -183,7 +183,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 invalid={Boolean(errors.mail && touched.mail)}
                                 errorMessage={errors.mail as string}
                             >
-                                <Field type="email" autoComplete="off" name="mail" placeholder="Email" component={Input} />
+                                <Field type="email" autoComplete="off" name="mail" component={Input} />
                             </FormItem>
 
                             {!isEditMode && (
@@ -193,15 +193,15 @@ const SignUpForm = (props: SignUpFormProps) => {
                                         invalid={Boolean(errors.password && touched.password)}
                                         errorMessage={errors.password as string}
                                     >
-                                        <Field autoComplete="off" name="password" placeholder="Mot de passe" component={PasswordInput} />
+                                        <Field autoComplete="off" name="password" component={PasswordInput} />
                                     </FormItem>
                                     
                                     <FormItem
-                                        label="Confirmation de mot de passe"
+                                        label="Confirmation du mot de passe"
                                         invalid={Boolean(errors.confirmPassword && touched.confirmPassword)}
                                         errorMessage={errors.confirmPassword as string}
                                     >
-                                        <Field autoComplete="off" name="confirmPassword" placeholder="Confirmation du mot de passe" component={PasswordInput} />
+                                        <Field autoComplete="off" name="confirmPassword" component={PasswordInput} />
                                     </FormItem>
                                 </>
                             )}
