@@ -1,12 +1,10 @@
 import ApiService from './ApiService'
 import type {
-    Category,
     CategoryRequest,
     CategoryResponse,
     CategoryListResponse
 } from '@/@types/category'
 import type { MessageResponse } from '@/@types/common'
-
 
 export async function apiCategoryIndex() {
     return ApiService.fetchData<CategoryListResponse>({
