@@ -16,58 +16,52 @@ import CategoryForm from './CategoryForm'
 const { Tr, Th, Td, THead, TBody } = Table
 
 const Category = () => {
-    // 1. LES ÉTATS (DONNÉES)
+
     const [data, setData] = useState<Category[]>([])
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
 
-    // 2. FONCTION DE CHARGEMENT DES DONNÉES
     const fetchCategories = async () => {
         try {
             const response = await apiCategoryIndex()
-            setData(response.data) // AdonisJS renvoie un tableau direct ici grâce à response.ok(categories)
+            setData(response.data)
         } catch (error) {
             console.error('Erreur de récupération', error)
             toast.push(<Notification type="danger">Erreur de connexion au serveur</Notification>, { placement: 'top-end' })
         }
     }
 
-    // Chargement initial au montage de la page
     useEffect(() => {
         fetchCategories()
     }, [])
 
-    // 3. GESTION DE LA BOÎTE DE DIALOGUE
     const openAddDialog = () => {
-        setSelectedCategory(null) // On vide pour être en mode Création
+        setSelectedCategory(null)
         setDialogIsOpen(true)
     }
 
     const openEditDialog = (category: Category) => {
-        setSelectedCategory(category) // On remplit pour être en mode Modification
+        setSelectedCategory(category)
         setDialogIsOpen(true)
     }
 
     const closeDialogAndRefresh = () => {
         setDialogIsOpen(false)
-        fetchCategories() // On met à jour le tableau immédiatement !
+        fetchCategories()
     }
 
-    // 4. GESTION DE LA SUPPRESSION
     const handleDelete = async (id: number) => {
-        // Petite sécurité native JavaScript avant de supprimer
         if (window.confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) {
             try {
                 const response = await apiCategoryDelete(id)
                 toast.push(<Notification type="success">{response.data.message}</Notification>, { placement: 'top-end' })
-                fetchCategories() // On rafraîchit le tableau
+                fetchCategories() 
             } catch (error) {
                 toast.push(<Notification type="danger">Impossible de supprimer la catégorie.</Notification>, { placement: 'top-end' })
             }
         }
     }
 
-    // 5. DÉFINITION DES COLONNES DU TABLEAU
     const columns = useMemo<ColumnDef<Category>[]>(() => [
         {
             header: 'ID',
@@ -102,17 +96,14 @@ const Category = () => {
         },
     ], [])
 
-    // 6. INITIALISATION DE TANSTACK TABLE
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
 
-    // 7. RENDU VISUEL
     return (
         <div>
-            {/* EN-TÊTE : Titre + Bouton Ajouter */}
             <div className="flex justify-between items-center mb-6">
                 <h3>Gestion des Catégories</h3>
                 <Button variant="solid" onClick={openAddDialog}>
@@ -120,7 +111,6 @@ const Category = () => {
                 </Button>
             </div>
 
-            {/* LE TABLEAU */}
             <Table>
                 <THead>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -146,7 +136,6 @@ const Category = () => {
                 </TBody>
             </Table>
 
-            {/* LA BOÎTE DE DIALOGUE (Invisible par défaut) */}
             <Dialog
                 isOpen={dialogIsOpen}
                 onClose={() => setDialogIsOpen(false)}
@@ -157,7 +146,6 @@ const Category = () => {
                         {selectedCategory ? 'Modifier la catégorie' : 'Nouvelle catégorie'}
                     </h5>
                     
-                    {/* LE FORMULAIRE EST INCLUS ICI */}
                     <CategoryForm 
                         initialData={selectedCategory} 
                         onSuccess={closeDialogAndRefresh} 

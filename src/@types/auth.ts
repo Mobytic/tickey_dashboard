@@ -26,6 +26,7 @@ export type SignInCredential = {
 export type SignInResponse = {
     token: string
     user: {
+        id: number
         firstname: string
         lastname: string
         companyName: string

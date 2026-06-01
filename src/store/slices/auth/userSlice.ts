@@ -3,6 +3,7 @@ import { SLICE_BASE_NAME } from './constants'
 import { UserRole } from '@/@types/auth'
 
 export type UserState = {
+    id: number
     firstname?: string
     lastname?: string
     companyName?: string
@@ -12,6 +13,7 @@ export type UserState = {
 }
 
 const initialState: UserState = {
+    id: 0,
     firstname: '',
     lastname: '',
     companyName: '',
@@ -25,6 +27,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUser(state, action: PayloadAction<UserState>) {
+            state.id = action.payload.id
             state.firstname = action.payload?.firstname
             state.lastname = action.payload?.lastname
             state.companyName = action.payload?.companyName

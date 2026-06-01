@@ -1,7 +1,7 @@
 import ApiService from './ApiService'
 import type {
     Ticket,
-    CreateTicketRequest,
+    TicketRequest,
     TicketResponse,
     TicketListResponse,
 } from '@/@types/ticket'
@@ -13,7 +13,7 @@ export async function apiTicketIndex() {
     })
 }
 
-export async function apiTicketCreate(data: CreateTicketRequest) {
+export async function apiTicketCreate(data: TicketRequest) {
     return ApiService.fetchData<TicketResponse>({
         url: 'tickets/create',
         method: 'post',
@@ -21,7 +21,7 @@ export async function apiTicketCreate(data: CreateTicketRequest) {
     })
 }
 
-export async function apiTicketUpdate(id: number, data: CreateTicketRequest) {
+export async function apiTicketUpdate(id: number, data: TicketRequest) {
     return ApiService.fetchData<TicketResponse>({
         url: `tickets/${id}`,
         method: 'patch',

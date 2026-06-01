@@ -7,21 +7,18 @@ import * as Yup from 'yup'
 import { apiCategoryCreate, apiCategoryUpdate } from '@/services/categoryService'
 import type { Category, CategoryRequest } from '@/@types/category'
 
-// Propriétés attendues par le composant
+
 interface CategoryFormProps {
-    initialData?: Category | null // Si rempli -> Mode Modification. Si vide -> Mode Création.
-    onSuccess: () => void        // Fonction pour fermer la modale et rafraîchir le tableau
+    initialData?: Category | null
+    onSuccess: () => void
 }
 
-// Règle de validation unique : le nom est obligatoire
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Le nom de la catégorie est obligatoire'),
 })
 
 const CategoryForm = ({ initialData, onSuccess }: CategoryFormProps) => {
-    // Si on a un ID, on est en mode édition
     const isEditMode = Boolean(initialData?.id)
-
     const onFormSubmit = async (
         values: CategoryRequest,
         setSubmitting: (isSubmitting: boolean) => void
@@ -29,16 +26,12 @@ const CategoryForm = ({ initialData, onSuccess }: CategoryFormProps) => {
         setSubmitting(true)
         try {
             if (isEditMode && initialData?.id) {
-                // APPEL API : MODIFICATION
                 const response = await apiCategoryUpdate(initialData.id, { name: values.name })
                 toast.push(<Notification type="success" duration={3000}>{response.data.message}</Notification>, { placement: 'top-end' })
             } else {
-                // APPEL API : CRÉATION
                 const response = await apiCategoryCreate({ name: values.name })
                 toast.push(<Notification type="success" duration={3000}>{response.data.message}</Notification>, { placement: 'top-end' })
             }
-            
-            // On ferme la boîte de dialogue et on rafraîchit la page
             onSuccess()
         } catch (error) {
             console.error(error)
@@ -51,7 +44,7 @@ const CategoryForm = ({ initialData, onSuccess }: CategoryFormProps) => {
     return (
         <Formik
             initialValues={{
-                name: initialData?.name || '', // On pré-remplit si modification
+                name: initialData?.name || '',
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
@@ -63,7 +56,6 @@ const CategoryForm = ({ initialData, onSuccess }: CategoryFormProps) => {
                     <FormContainer>
                         <FormItem
                             label="Nom de la catégorie"
-                            // Utilisation de Boolean() pour la rigueur TypeScript
                             invalid={Boolean(errors.name && touched.name)}
                             errorMessage={errors.name as string}
                         >

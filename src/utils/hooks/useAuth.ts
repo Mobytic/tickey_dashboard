@@ -32,6 +32,7 @@ function useAuth() {
                 if (user) {
                     dispatch(
                         setUser({
+                            id: user.id,
                             firstname: user.firstname,
                             lastname: user.lastname,
                             companyName: user.companyName,
@@ -74,6 +75,7 @@ function useAuth() {
         dispatch(signOutSuccess())
         dispatch(
             setUser({
+                id: 0,
                 firstname: '',
                 lastname: '',
                 companyName: '',
