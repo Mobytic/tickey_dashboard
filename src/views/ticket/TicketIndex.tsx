@@ -35,11 +35,8 @@ const TicketList = () => {
     }, [])
 
     const visibleTickets = useMemo(() => {
-        if (isAdmin) {
-            return rawTickets
-        }
-        return rawTickets.filter((ticket) => ticket.userId === user?.id)
-    }, [rawTickets, isAdmin, user?.id])
+        return rawTickets
+    }, [rawTickets])
 
     const openAddDialog = () => {
         setSelectedTicket(null)

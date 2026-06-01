@@ -24,7 +24,9 @@ interface TicketFormProps {
 const validationSchema = Yup.object().shape({
     title: Yup.string().required('Le titre du ticket est obligatoire'),
     bugLink: Yup.string().required('Le lien vers le bug est obligatoire'),
-    clientComment: Yup.string().required('La description est obligatoire'),
+    clientComment: Yup.string()
+        .min(25, 'La description doit contenir au moins 25 caractères')
+        .required('La description est obligatoire'),
     categoryId: Yup.number().required('Veuillez sélectionner une catégorie'),
     statusId: Yup.number()
         .transform((value, originalValue) => (String(originalValue).trim() === '' ? null : value))
@@ -85,16 +87,20 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                 toast.push(<Notification type="success" duration={3000}>{response.data.message}</Notification>, { placement: 'top-end' })
             }
             onSuccess()
-        } catch (error) {
+        } catch (error: any) {
             console.error(error)
-            toast.push(<Notification type="danger" duration={3000}>Une erreur est survenue</Notification>, { placement: 'top-end' })
+            const errorMessage = error.response?.data?.message || 
+                                 error.response?.data?.errors?.[0]?.message || 
+                                 "Une erreur est survenue lors de l'enregistrement."
+
+            toast.push(<Notification type="danger" duration={5000}>{errorMessage}</Notification>, { placement: 'top-end' })
         } finally {
             setSubmitting(false)
         }
     }
     const initialNametagId = initialData?.nametags?.[0]?.id || ''
     const initialStatusId = initialData?.ticketStatusId || ''
-    
+
     return (
         <Formik
             initialValues={{
