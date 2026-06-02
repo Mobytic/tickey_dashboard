@@ -9,12 +9,14 @@ import { apiTicketIndex } from '@/services/ticketService'
 import type { Ticket } from '@/@types/ticket'
 import TicketForm from './TicketForm'
 import { UserRole } from '@/@types/auth'
+import TicketShow from './TicketShow'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
 const TicketList = () => {
     const [rawTickets, setRawTickets] = useState<Ticket[]>([])
-    const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    const [isFormOpen, setIsFormOpen] = useState(false)
+    const [isShowOpen, setIsShowOpen] = useState(false)
     const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null)
 
     const user = useAppSelector((state) => state.auth.user)
@@ -34,28 +36,28 @@ const TicketList = () => {
         fetchTickets()
     }, [])
 
-    const visibleTickets = useMemo(() => {
-        return rawTickets
-    }, [rawTickets])
-
-    const openAddDialog = () => {
+   const openAddDialog = () => {
         setSelectedTicket(null)
-        setDialogIsOpen(true)
+        setIsFormOpen(true)
     }
 
     const openEditDialog = (ticket: Ticket) => {
         setSelectedTicket(ticket)
-        setDialogIsOpen(true)
+        setIsFormOpen(true)
     }
 
-    const closeDialogAndRefresh = () => {
-        setDialogIsOpen(false)
+    const openShowDialog = (ticket: Ticket) => {
+        setSelectedTicket(ticket)
+        setIsShowOpen(true)
+    }
+
+    const closeFormAndRefresh = () => {
+        setIsFormOpen(false)
         fetchTickets()
     }
 
     const columns = useMemo<ColumnDef<Ticket>[]>(() => {
         const baseColumns: ColumnDef<Ticket>[] = [
-            { header: 'ID', accessorKey: 'id' },
             { header: 'Titre', accessorKey: 'title' },
             { 
                 header: 'Catégorie', 
@@ -68,20 +70,22 @@ const TicketList = () => {
                 cell: (props) => props.row.original.status?.name || 'Non défini'
             },
             { 
-                header: 'Tag', 
-                id: 'nametag',
-                cell: (props) => props.row.original.nametags?.[0]?.name || '-'
-            }
+                header: 'Site Web', 
+                id: 'website',
+                cell: (props) => props.row.original.user?.url || '-'
+            },
+            { 
+                header: 'Date', 
+                id: 'createdAt',
+                cell: (props) => new Date(props.row.original.createdAt).toLocaleDateString('fr-FR')
+            },
         ]
-
+  
         if (isAdmin) {
             baseColumns.push({
-                header: 'Créé par',
-                id: 'creator',
-                cell: (props) => {
-                    const creator = props.row.original.user
-                    return creator ? `${creator.firstname} ${creator.lastname}` : `Utilisateur #${props.row.original.userId}`
-                }
+                header: 'Tag',
+                id: 'nametag',
+                cell: (props) => props.row.original.nametags?.[0]?.name || '-'
             })
         }
 
@@ -90,19 +94,23 @@ const TicketList = () => {
             id: 'actions',
             cell: (props) => {
                 const ticket = props.row.original
-                const canModify = isAdmin || ticket.userId === user?.id
-
-                if (!canModify) {
-                    return <span className="text-gray-400 text-xs italic">Lecture seule</span>
-                }
-
                 return (
-                    <button
-                        className="text-blue-500 hover:underline font-semibold text-sm"
-                        onClick={() => openEditDialog(ticket)}
-                    >
-                        Modifier
-                    </button>
+                    <div className="flex gap-3">
+                        <button
+                            className="text-blue-500 hover:text-blue-700 font-semibold text-sm transition-colors"
+                            onClick={() => openEditDialog(ticket)}
+                        >
+                            Modifier
+                        </button>
+                        {isAdmin && (
+                            <button
+                                className="text-emerald-500 hover:text-emerald-700 font-semibold text-sm transition-colors"
+                                onClick={() => openShowDialog(ticket)}
+                            >
+                                Voir
+                            </button>
+                        )}
+                    </div>
                 )
             }
         })
@@ -111,7 +119,7 @@ const TicketList = () => {
     }, [isAdmin, user?.id])
 
     const table = useReactTable({
-        data: visibleTickets,
+        data: rawTickets,
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
@@ -160,12 +168,18 @@ const TicketList = () => {
                 </TBody>
             </Table>
 
-            <Dialog isOpen={dialogIsOpen} onClose={() => setDialogIsOpen(false)} onRequestClose={() => setDialogIsOpen(false)}>
+            <Dialog isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} onRequestClose={() => setIsFormOpen(false)} width={800}>
                 <div className="p-4">
-                    <h5 className="mb-4">
-                        {selectedTicket ? 'Modifier le ticket' : 'Créer un nouveau ticket'}
-                    </h5>
-                    <TicketForm initialData={selectedTicket} onSuccess={closeDialogAndRefresh} />
+                    <h5 className="mb-4">{selectedTicket ? 'Modifier le ticket' : 'Créer un nouveau ticket'}</h5>
+                    <TicketForm initialData={selectedTicket} onSuccess={closeFormAndRefresh} />
+                </div>
+            </Dialog>
+
+            {/* Modale d'Affichage (Show) */}
+            <Dialog isOpen={isShowOpen} onClose={() => setIsShowOpen(false)} onRequestClose={() => setIsShowOpen(false)} width={700}>
+                <div className="p-4">
+                    <h5 className="mb-4">Détails du Ticket #{selectedTicket?.id}</h5>
+                    {selectedTicket && <TicketShow ticket={selectedTicket} />}
                 </div>
             </Dialog>
         </div>

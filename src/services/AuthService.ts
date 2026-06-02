@@ -11,6 +11,7 @@ import type {
     SignOutResponse,
     UserListResponse,
 } from '@/@types/auth'
+import type { WebsiteListResponse } from '@/@types/website'
 import type { MessageResponse } from '@/@types/common'
 
 export async function apiSignIn(data: SignInCredential) {
@@ -63,6 +64,13 @@ export async function apiAuthUpdate(id: number, data: UpdateProfileRequest) {
 export async function apiUserIndex() {
     return ApiService.fetchData<UserListResponse>({
         url: 'auth/users',
+        method: 'get',
+    })
+}
+
+export async function apiWebsiteIndex() {
+    return ApiService.fetchData<WebsiteListResponse>({
+        url: 'auth/websites',
         method: 'get',
     })
 }

@@ -1,6 +1,8 @@
 import type { Category } from './category'
 import type { TicketStatus } from './ticketStatus'
 import type { Nametag } from './nametag'
+import { Website } from './website'
+
 
 export type Ticket = {
     id: number
@@ -12,10 +14,10 @@ export type Ticket = {
     userId: number
     categoryId: number
     ticketStatusId: number
+    websiteId: number
     createdAt: string
     updatedAt: string
     archivedAt: string | null
-
     category?: Category
     status?: TicketStatus      
     nametags?: Nametag[]  
@@ -23,6 +25,9 @@ export type Ticket = {
         firstname: string
         lastname: string
         mail: string
+        tel: string
+        url: string
+        urls?: Website[]
     }
 }
 
@@ -30,7 +35,10 @@ export type TicketRequest = {
     title: string
     bugLink: string
     clientComment: string
+    teamComment: string
+    mailComment: string
     categoryId: number
+    websiteId: number
     statusId?: number    
     nametagIds?: number[]
 }
