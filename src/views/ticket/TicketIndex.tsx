@@ -97,14 +97,14 @@ const TicketList = () => {
                 return (
                     <div className="flex gap-3">
                         <button
-                            className="text-blue-500 hover:text-blue-700 font-semibold text-sm transition-colors"
+                            className="text-orange-400 hover:text-orange-300 font-semibold text-sm transition-colors"
                             onClick={() => openEditDialog(ticket)}
                         >
                             Modifier
                         </button>
                         {isAdmin && (
                             <button
-                                className="text-emerald-500 hover:text-emerald-700 font-semibold text-sm transition-colors"
+                                className="text-violet-400 hover:text-violet-500 font-semibold text-sm transition-colors"
                                 onClick={() => openShowDialog(ticket)}
                             >
                                 Voir
