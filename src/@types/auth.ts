@@ -12,6 +12,8 @@ export type User = {
     companyName: string
     createdAt: string
     updatedAt: string
+    tel?: string
+    drivePath?: string
     websites?: {
         id: number
         url: string
@@ -32,6 +34,12 @@ export type SignInResponse = {
         companyName: string
         role: UserRole
         mail: string
+        tel?: string
+        drivePath?: string
+        websites?: {
+            id: number
+            url: string
+        }[]
     }
     message: string
 }
@@ -41,8 +49,10 @@ export type SignUpResponse = SignInResponse
 export type SignUpCredential = {
     firstname: string
     lastname: string
-    companyName: string
+    companyName?: string
     mail: string
+    tel?: string
+    drivePath?: string
     password: string
     passwordConfirmation: string
     urls?: {
@@ -68,6 +78,8 @@ export type UpdateProfileRequest = {
     mail?: string
     password?: string
     companyName?: string
+    tel?: string
+    drivePath?: string
     urls?: {
         url?: string
     }[]

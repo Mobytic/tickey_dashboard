@@ -38,6 +38,9 @@ function useAuth() {
                             companyName: user.companyName,
                             mail: user.mail,
                             authority: [user.role],
+                            tel: user.tel,
+                            drivePath: user.drivePath,
+                            websites: user.websites,
                         })
                     )
                 }
@@ -81,6 +84,9 @@ function useAuth() {
                 companyName: '',
                 mail: '',
                 authority: [],
+                tel: '',
+                drivePath: '',
+                websites: [],
             })
         )
         navigate(appConfig.unAuthenticatedEntryPath)

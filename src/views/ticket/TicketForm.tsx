@@ -8,7 +8,7 @@ import * as Yup from 'yup'
 import { useAppSelector } from '@/store'
 import { apiTicketCreate, apiTicketUpdate } from '@/services/ticketService'
 import { apiCategoryIndex } from '@/services/categoryService'
-import { apiWebsiteIndex } from '@/services/AuthService'
+import { apiWebsiteIndex } from '@/services/AuthService' // Provenant de ton controlleur Auth
 import { apiTicketStatusIndex } from '@/services/ticketStatusService'
 import { apiNametagIndex } from '@/services/nametagService'
 import type { Ticket, TicketRequest } from '@/@types/ticket'
@@ -31,7 +31,7 @@ const validationSchema = Yup.object().shape({
         .required('La description est obligatoire'),
     teamComment: Yup.string(),
     mailComment: Yup.string(),
-    websiteId: Yup.mixed().nullable(),
+    websiteId: Yup.number().required('Veuillez sélectionner un site web'),
     categoryId: Yup.number().required('Veuillez sélectionner une catégorie'),
     statusId: Yup.mixed()
         .transform((value, originalValue) => (String(originalValue).trim() === '' ? null : value))
@@ -50,7 +50,6 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
     const [categories, setCategories] = useState<Category[]>([])
     const [statuses, setStatuses] = useState<TicketStatus[]>([])
     const [nametags, setNametags] = useState<Nametag[]>([])
-    
 
     useEffect(() => {
         const loadDependencies = async () => {
@@ -63,6 +62,7 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                 setCategories(resCat.data)
                 setStatuses(resStat.data)
                 setNametags(resTag.data)
+                
                 if (isAdmin) {
                     const resWeb = await apiWebsiteIndex()
                     setWebsites(resWeb.data)
@@ -76,12 +76,12 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
 
     const availableWebsites: Website[] = isAdmin 
         ? websites 
-        : (user as any)?.urls || []
+        : (user as any)?.websites || []
 
     const onFormSubmit = async (
         values: any,
-        setSubmitting: (isSubmitting: boolean) => void
-        resetForm?: () => void
+        setSubmitting: (isSubmitting: boolean) => void,
+        resetForm?: () => void 
     ) => {
         setSubmitting(true)
         
@@ -104,9 +104,9 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
             } else {
                 const response = await apiTicketCreate(formattedValues)
                 toast.push(<Notification type="success" duration={3000}>{response.data.message}</Notification>, { placement: 'top-end' })
-                resetForm?.()
+                resetForm?.() 
             }
-            onSuccess?.()
+            onSuccess?.() 
         } catch (error: any) {
             console.error(error)
             const errorMessage = error.response?.data?.message || 
@@ -118,6 +118,7 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
             setSubmitting(false)
         }
     }
+
     const initialNametagId = initialData?.nametags?.[0]?.id || ''
     const initialStatusId = initialData?.ticketStatusId || ''
     const initialWebsiteId = initialData?.websiteId || ''
@@ -148,14 +149,9 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                             invalid={Boolean(errors.title && touched.title)}
                             errorMessage={errors.title as string}
                         >
-                            <Field
-                                type="text"
-                                autoComplete="off"
-                                name="title"
-                                placeholder="Ex: Problème d'accès à la plateforme"
-                                component={Input}
-                            />
+                            <Field type="text" autoComplete="off" name="title" placeholder="Ex: Problème d'accès à la plateforme" component={Input} />
                         </FormItem>
+
                         <FormItem
                             label="Catégorie"
                             invalid={Boolean(errors.categoryId && touched.categoryId)}
@@ -168,6 +164,7 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                                 ))}
                             </Field>
                         </FormItem>
+
                         <FormItem
                             label="Site Web concerné"
                             invalid={Boolean(errors.websiteId && touched.websiteId)}
@@ -188,12 +185,7 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                             invalid={Boolean(errors.bugLink && touched.bugLink)}
                             errorMessage={errors.bugLink as string}
                         >
-                            <Field
-                                name="bugLink"
-                                placeholder='www.mobytic.fr, page "à propos"...'
-                                type="text"
-                                component={Input}
-                            />
+                            <Field name="bugLink" placeholder='www.mobytic.fr, page "à propos"...' type="text" component={Input} />
                         </FormItem>
 
                         <FormItem
@@ -201,81 +193,51 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                             invalid={Boolean(errors.clientComment && touched.clientComment)}
                             errorMessage={errors.clientComment as string}
                         >
-                            <Field
-                                name="clientComment"
-                                placeholder="Décrivez votre problème ici..."
-                            >
+                            <Field name="clientComment" placeholder="Décrivez votre problème ici...">
                                 {({ field }: any) => (
-                                    <textarea
-                                        {...field}
-                                        className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
-                                    />
+                                    <textarea {...field} className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" />
                                 )}
                             </Field>
                         </FormItem>
-                        {isAdmin && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <FormItem
-                                label="Statut"
-                                invalid={Boolean(errors.statusId && touched.statusId)}
-                                errorMessage={errors.statusId as string}
-                            >
-                                <Field as="select" name="statusId" className="w-full p-2 border rounded-md h-10 text-sm dark:bg-gray-700 dark:border-gray-600">
-                                    <option value="">Sélectionner...</option>
-                                    {statuses.map((stat) => (
-                                        <option key={stat.id} value={stat.id}>{stat.name}</option>
-                                    ))}
-                                </Field>
-                            </FormItem>
 
-                            <FormItem
-                                label="Étiquette (Tag)"
-                                invalid={Boolean(errors.nametagId && touched.nametagId)}
-                                errorMessage={errors.nametagId as string}
-                            >
-                                <Field as="select" name="nametagId" className="w-full p-2 border rounded-md h-10 text-sm dark:bg-gray-700 dark:border-gray-600">
-                                    <option value="">Aucune</option>
-                                    {nametags.map((tag) => (
-                                        <option key={tag.id} value={tag.id}>{tag.name}</option>
-                                    ))}
-                                </Field>
-                            </FormItem>
-                            <FormItem
-                                label="Commentaire de l'équipe"
-                                invalid={Boolean(errors.teamComment && touched.teamComment)}
-                                errorMessage={errors.teamComment as string}
-                            >
-                                <Field
-                                    name="teamComment"
-                                >
-                                    {({ field }: any) => (
-                                        <textarea
-                                            {...field}
-                                            className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
-                                        />
-                                    )}
-                                </Field>
-                            </FormItem>
-                            <FormItem
-                                label="Commentaire de cloture"
-                                invalid={Boolean(errors.mailComment && touched.mailComment)}
-                                errorMessage={errors.mailComment as string}
-                            >
-                                <Field
-                                    name="mailComment"
-                                    placeholder="Remplissez le commentaire qui sera envoyé par mail"
-                                >
-                                    {({ field }: any) => (
-                                        <textarea
-                                            {...field}
-                                            className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
-                                        />
-                                    )}
-                                </Field>
-                            </FormItem>
-                        </div>
-                        
+                        {isAdmin && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <FormItem label="Statut" invalid={Boolean(errors.statusId && touched.statusId)} errorMessage={errors.statusId as string}>
+                                    <Field as="select" name="statusId" className="w-full p-2 border rounded-md h-10 text-sm dark:bg-gray-700 dark:border-gray-600">
+                                        <option value="">Sélectionner...</option>
+                                        {statuses.map((stat) => (
+                                            <option key={stat.id} value={stat.id}>{stat.name}</option>
+                                        ))}
+                                    </Field>
+                                </FormItem>
+
+                                <FormItem label="Étiquette (Tag)" invalid={Boolean(errors.nametagId && touched.nametagId)} errorMessage={errors.nametagId as string}>
+                                    <Field as="select" name="nametagId" className="w-full p-2 border rounded-md h-10 text-sm dark:bg-gray-700 dark:border-gray-600">
+                                        <option value="">Aucune</option>
+                                        {nametags.map((tag) => (
+                                            <option key={tag.id} value={tag.id}>{tag.name}</option>
+                                        ))}
+                                    </Field>
+                                </FormItem>
+
+                                <FormItem label="Commentaire de l'équipe" invalid={Boolean(errors.teamComment && touched.teamComment)} errorMessage={errors.teamComment as string}>
+                                    <Field name="teamComment">
+                                        {({ field }: any) => (
+                                            <textarea {...field} className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" />
+                                        )}
+                                    </Field>
+                                </FormItem>
+
+                                <FormItem label="Commentaire de cloture" invalid={Boolean(errors.mailComment && touched.mailComment)} errorMessage={errors.mailComment as string}>
+                                    <Field name="mailComment" placeholder="Remplissez le commentaire qui sera envoyé par mail">
+                                        {({ field }: any) => (
+                                            <textarea {...field} className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" />
+                                        )}
+                                    </Field>
+                                </FormItem>
+                            </div>
                         )}
+
                         <div className="flex justify-end mt-6">
                             <Button loading={isSubmitting} variant="solid" type="submit">
                                 {isEditMode ? 'Enregistrer les modifications' : 'Ouvrir le ticket'}

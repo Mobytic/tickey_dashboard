@@ -36,7 +36,7 @@ const TicketList = () => {
         fetchTickets()
     }, [])
 
-   const openAddDialog = () => {
+    const openAddDialog = () => {
         setSelectedTicket(null)
         setIsFormOpen(true)
     }
@@ -72,7 +72,7 @@ const TicketList = () => {
             { 
                 header: 'Site Web', 
                 id: 'website',
-                cell: (props) => props.row.original.user?.url || '-'
+                cell: (props) => props.row.original.website?.url || '-' 
             },
             { 
                 header: 'Date', 
@@ -116,7 +116,7 @@ const TicketList = () => {
         })
 
         return baseColumns
-    }, [isAdmin, user?.id])
+    }, [isAdmin])
 
     const table = useReactTable({
         data: rawTickets,
@@ -169,13 +169,12 @@ const TicketList = () => {
             </Table>
 
             <Dialog isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} onRequestClose={() => setIsFormOpen(false)} width={800}>
-                <div className="p-4">
+                <div className="p-4 max-h-[80vh] overflow-y-auto">
                     <h5 className="mb-4">{selectedTicket ? 'Modifier le ticket' : 'Créer un nouveau ticket'}</h5>
                     <TicketForm initialData={selectedTicket} onSuccess={closeFormAndRefresh} />
                 </div>
             </Dialog>
 
-            {/* Modale d'Affichage (Show) */}
             <Dialog isOpen={isShowOpen} onClose={() => setIsShowOpen(false)} onRequestClose={() => setIsShowOpen(false)} width={700}>
                 <div className="p-4">
                     <h5 className="mb-4">Détails du Ticket #{selectedTicket?.id}</h5>

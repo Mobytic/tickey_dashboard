@@ -10,6 +10,12 @@ export type UserState = {
     mail?: string
     role?: UserRole
     authority?: UserRole[]
+    tel?: string
+    drivePath?: string
+    websites?: {
+            id: number
+            url: string
+        }[]
 }
 
 const initialState: UserState = {
@@ -20,6 +26,9 @@ const initialState: UserState = {
     mail: '',
     role: undefined,
     authority: [],
+    tel: '',
+    drivePath: '',
+    websites: [],
 }
 
 const userSlice = createSlice({
@@ -32,6 +41,9 @@ const userSlice = createSlice({
             state.lastname = action.payload?.lastname
             state.companyName = action.payload?.companyName
             state.mail = action.payload?.mail
+            state.tel = action.payload?.tel
+            state.drivePath = action.payload?.drivePath
+            state.websites = action.payload?.websites
             state.role = action.payload?.role
             if (action.payload?.role) {
                 state.authority = [action.payload.role]
