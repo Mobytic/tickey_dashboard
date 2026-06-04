@@ -58,6 +58,11 @@ const TicketList = () => {
 
     const columns = useMemo<ColumnDef<Ticket>[]>(() => {
         const baseColumns: ColumnDef<Ticket>[] = [
+            { 
+                header: 'Date', 
+                id: 'createdAt',
+                cell: (props) => new Date(props.row.original.createdAt).toLocaleDateString('fr-FR')
+            },
             { header: 'Titre', accessorKey: 'title' },
             { 
                 header: 'Catégorie', 
@@ -73,11 +78,6 @@ const TicketList = () => {
                 header: 'Site Web', 
                 id: 'website',
                 cell: (props) => props.row.original.website?.url || '-' 
-            },
-            { 
-                header: 'Date', 
-                id: 'createdAt',
-                cell: (props) => new Date(props.row.original.createdAt).toLocaleDateString('fr-FR')
             },
         ]
   
@@ -170,14 +170,14 @@ const TicketList = () => {
 
             <Dialog isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} onRequestClose={() => setIsFormOpen(false)} width={800}>
                 <div className="p-4 max-h-[80vh] overflow-y-auto">
-                    <h5 className="mb-4">{selectedTicket ? 'Modifier le ticket' : 'Créer un nouveau ticket'}</h5>
+                    <h4 className="mb-4">{selectedTicket ? 'Modifier le ticket' : 'Créer un nouveau ticket'}</h4>
                     <TicketForm initialData={selectedTicket} onSuccess={closeFormAndRefresh} />
                 </div>
             </Dialog>
 
             <Dialog isOpen={isShowOpen} onClose={() => setIsShowOpen(false)} onRequestClose={() => setIsShowOpen(false)} width={700}>
                 <div className="p-4">
-                    <h5 className="mb-4">Détails du Ticket #{selectedTicket?.id}</h5>
+                    <h4 className="mb-5">Détails du Ticket #{selectedTicket?.id}</h4>
                     {selectedTicket && <TicketShow ticket={selectedTicket} />}
                 </div>
             </Dialog>

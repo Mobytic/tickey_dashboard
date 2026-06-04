@@ -14,7 +14,7 @@ const FooterContent = () => {
         <div className="flex items-center justify-between flex-auto w-full">
             <span>
                 &copy; {`${new Date().getFullYear()}`}{' '}
-                <span className="font-semibold">- {`${APP_NAME}`}
+                <span className="font-semibold text-indigo-600">- {`${APP_NAME}`}
                     </span> Tous droits réservés</span>
             <div className="">
                 <a

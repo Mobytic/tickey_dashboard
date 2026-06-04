@@ -7,6 +7,7 @@ import {
     useReactTable,
 } from '@tanstack/react-table'
 import type { ColumnDef, ColumnSort } from '@tanstack/react-table'
+import Button from '@/components/ui/Button'
 import type { User } from '@/@types/auth'
 import { apiUserIndex } from '@/services/authService'
 import Dialog from '@/components/ui/Dialog'
@@ -63,6 +64,10 @@ const UserIndex = () => {
             accessorKey: 'mail',
         },
         {
+            header: 'Téléphone',
+            accessorKey: 'tel',
+        },
+        {
             header: 'Sites internet',
             id: 'websites',
             cell: (props) => {
@@ -116,8 +121,10 @@ const UserIndex = () => {
     })
 
     return (
-        <>
-            <h3>Liste des utilisateurs</h3>
+        <div>
+            <div className="flex justify-between items-center mb-6">
+                <h3>Liste des utilisateurs</h3>
+            </div>
             <Table>
                 <THead>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -195,7 +202,7 @@ const UserIndex = () => {
                     </div>
                 </div>
             </Dialog>
-        </>
+        </div>
     )
 }
 

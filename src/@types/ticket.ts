@@ -28,6 +28,7 @@ export type Ticket = {
         lastname: string
         mail: string
         tel: string
+        drivePath: string
         url: string
         urls?: Website[]
     }

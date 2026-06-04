@@ -12,11 +12,12 @@ import { Notification, toast } from '@/components/ui'
 import { apiNametagIndex, apiNametagDelete } from '@/services/nametagService'
 import type { Nametag } from '@/@types/Nametag'
 import NametagForm from './NametagForm'
+import ColorIndicator from '@/components/ui/Nametag/ColorIndicator'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
 const Nametag = () => {
-    // 1. LES ÉTATS (DONNÉES)
+
     const [data, setData] = useState<Nametag[]>([])
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
     const [selectedNametag, setSelectedNametag] = useState<Nametag | null>(null)
@@ -76,6 +77,10 @@ const Nametag = () => {
         {
             header: 'Couleur',
             accessorKey: 'color',
+            cell: (props) => {
+                const colorValue = props.getValue<string>()
+                return <ColorIndicator color={colorValue} />
+            }
         },
         {
             header: 'Actions',
