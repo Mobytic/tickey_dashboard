@@ -19,6 +19,8 @@ const createValidationSchema = Yup.object().shape({
     firstname: Yup.string().required('Veuillez renseigner un prénom'),
     lastname: Yup.string().required('Veuillez renseigner un nom'),
     companyName: Yup.string().required("Veuillez renseigner l'entreprise"),
+    tel: Yup.string().trim().optional(),
+    drivePath: Yup.string().trim().optional(),
     mail: Yup.string().email('Format de mail invalide').required('Merci de renseigner un mail'),
     password: Yup.string().required('Veuillez renseigner le mot de passe'),
     confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Les mots de passe ne sont pas identiques'),
@@ -28,6 +30,8 @@ const updateValidationSchema = Yup.object().shape({
     firstname: Yup.string().required('Veuillez renseigner un prénom'),
     lastname: Yup.string().required('Veuillez renseigner un nom'),
     companyName: Yup.string().required("Veuillez renseigner l'entreprise"),
+    tel: Yup.string().trim().optional(),
+    drivePath: Yup.string().trim().optional(),
     mail: Yup.string().email('Format de mail invalide').required('Merci de renseigner un mail'),
 })
 
@@ -51,6 +55,8 @@ const SignUpForm = (props: SignUpFormProps) => {
                     firstname: values.firstname,
                     lastname: values.lastname,
                     companyName: values.companyName,
+                    tel: values.tel,
+                    drivePath: values.drivePath,
                     mail: values.mail,
                     urls: values.urls,
                 })
@@ -61,7 +67,9 @@ const SignUpForm = (props: SignUpFormProps) => {
                 const result = await signUp({ 
                     firstname: values.firstname, 
                     lastname: values.lastname, 
-                    companyName: values.companyName, 
+                    companyName: values.companyName,
+                    tel: values.tel,
+                    drivePath: values.drivePath, 
                     password: values.password, 
                     mail: values.mail, 
                     passwordConfirmation: values.confirmPassword,
@@ -92,6 +100,8 @@ const SignUpForm = (props: SignUpFormProps) => {
                     lastname: initialData?.lastname || '',
                     companyName: initialData?.companyName || '',
                     mail: initialData?.mail || '',
+                    tel: initialData?.tel || '',
+                    drivePath: initialData?.drivePath || '',
                     password: '', 
                     confirmPassword: '',
                     urls: initialData?.websites || [],
@@ -130,6 +140,20 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 errorMessage={errors.companyName as string}
                             >
                                 <Field type="text" autoComplete="off" name="companyName" component={Input} />
+                            </FormItem>
+                            <FormItem
+                                label="Téléphone"
+                                invalid={Boolean(errors.tel && touched.tel)}
+                                errorMessage={errors.tel as string}
+                            >
+                                <Field type="text" autoComplete="off" name="tel" component={Input} />
+                            </FormItem>
+                            <FormItem
+                                label="Lien vers le Drive"
+                                invalid={Boolean(errors.drivePath && touched.drivePath)}
+                                errorMessage={errors.drivePath as string}
+                            >
+                                <Field type="text" autoComplete="off" name="drivePath" component={Input} />
                             </FormItem>
                            
                            <div className="mb-4">
