@@ -12,6 +12,8 @@ import type { User } from '@/@types/auth'
 import { apiUserIndex } from '@/services/authService'
 import Dialog from '@/components/ui/Dialog'
 import SignUpForm from '@/views/auth/SignUp/SignUpForm'
+import ActionButton from '@/components/ui/Button/ActionButton'
+import UserShow from './userShow'
 
 const { Tr, Th, Td, THead, TBody, Sorter } = Table
 
@@ -19,11 +21,17 @@ const UserIndex = () => {
     const [sorting, setSorting] = useState<ColumnSort[]>([])
     const [data, setData] = useState<User[]>([])
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    const [isShowOpen, setIsShowOpen] = useState(false)
     const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
-    const openDialog = (user: User) => {
+    const openEditDialog = (user: User) => {
         setSelectedUser(user)
         setDialogIsOpen(true)
+    }
+
+    const openShowDialog = (user: User) => {
+        setSelectedUser(user)
+        setIsShowOpen(true)
     }
 
     const closeDialog = () => {
@@ -98,12 +106,16 @@ const UserIndex = () => {
             cell: (props) => {
                 const user = props.row.original;
                 return (
-                    <button
-                        className="text-blue-500 hover:text-blue-700 font-semibold"
-                        onClick={() => openDialog(user)}
-                    >
-                        Modifier
-                    </button>
+                    <div className="flex gap-4">
+                        <ActionButton 
+                            type="edit" 
+                            onClick={() => openEditDialog(user)} 
+                        />
+                        <ActionButton 
+                            type="view" 
+                            onClick={() => openShowDialog(user)} 
+                        />
+                    </div>
                 );
             },
         },
@@ -187,19 +199,19 @@ const UserIndex = () => {
                 </TBody>
             </Table>
             
-            <Dialog
-                isOpen={dialogIsOpen}
-                onClose={closeDialog}
-                onRequestClose={closeDialog}
-            >
+            <Dialog isOpen={dialogIsOpen} onClose={closeDialog} onRequestClose={closeDialog}>
                 <div className="flex flex-col h-full justify-between">
-                    <h5 className="mb-4">Modifier l'utilisateur</h5>
+                    <h4 className="mb-4">Modifier l'utilisateur</h4>
                     <div className="max-h-[70vh] overflow-y-auto">
-                        <SignUpForm 
-                            initialData={selectedUser} 
-                            onSuccess={closeDialog}
-                        />
+                        <SignUpForm initialData={selectedUser} onSuccess={closeDialog}/>
                     </div>
+                </div>
+            </Dialog>
+
+            <Dialog isOpen={isShowOpen} onClose={() => setIsShowOpen(false)} onRequestClose={() => setIsShowOpen(false)} width={700}>
+                <div className="p-4">
+                    <h4 className="mb-5">Détails de l'utilisateur #{selectedUser?.id}</h4>
+                    {selectedUser && <UserShow user={selectedUser} />}
                 </div>
             </Dialog>
         </div>

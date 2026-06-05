@@ -12,6 +12,7 @@ import { Notification, toast } from '@/components/ui'
 import { apiCategoryIndex, apiCategoryDelete } from '@/services/categoryService'
 import type { Category } from '@/@types/category'
 import CategoryForm from './CategoryForm'
+import ActionButton from '@/components/ui/Button/ActionButton'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -78,18 +79,14 @@ const Category = () => {
                 const category = props.row.original
                 return (
                     <div className="flex gap-4">
-                        <button
-                            className="text-blue-500 hover:underline font-semibold"
-                            onClick={() => openEditDialog(category)}
-                        >
-                            Modifier
-                        </button>
-                        <button
-                            className="text-red-500 hover:underline font-semibold"
-                            onClick={() => handleDelete(category.id)}
-                        >
-                            Supprimer
-                        </button>
+                        <ActionButton 
+                            type="edit" 
+                            onClick={() => openEditDialog(category)} 
+                        />
+                        <ActionButton 
+                            type="delete" 
+                            onClick={() => handleDelete(category.id)} 
+                        />
                     </div>
                 )
             },

@@ -12,6 +12,7 @@ import { Notification, toast } from '@/components/ui'
 import { apiTicketStatusIndex, apiTicketStatusDelete } from '@/services/TicketStatusService'
 import type { TicketStatus } from '@/@types/TicketStatus'
 import StatusForm from './StatusForm'
+import ActionButton from '@/components/ui/Button/ActionButton'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -77,21 +78,17 @@ const Status = () => {
             header: 'Actions',
             id: 'actions',
             cell: (props) => {
-                const TicketStatus = props.row.original
+                const ticketStatus = props.row.original
                 return (
                     <div className="flex gap-4">
-                        <button
-                            className="text-blue-500 hover:underline font-semibold"
-                            onClick={() => openEditDialog(TicketStatus)}
-                        >
-                            Modifier
-                        </button>
-                        <button
-                            className="text-red-500 hover:underline font-semibold"
-                            onClick={() => handleDelete(TicketStatus.id)}
-                        >
-                            Supprimer
-                        </button>
+                        <ActionButton 
+                            type="edit" 
+                            onClick={() => openEditDialog(ticketStatus)} 
+                        />
+                        <ActionButton 
+                            type="delete" 
+                            onClick={() => handleDelete(ticketStatus.id)} 
+                        />
                     </div>
                 )
             },

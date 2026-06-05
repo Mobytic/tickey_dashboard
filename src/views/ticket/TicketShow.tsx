@@ -17,9 +17,9 @@ const TicketShow = ({ ticket }: TicketShowProps) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     {isAdmin && <div><span className="font-semibold">Tag :</span> {ticket.nametags?.[0]?.name || '-'}</div>}
                     <div><span className="font-semibold">Statut :</span> {ticket.status?.name || '-'}</div>
-                    <div><span className="font-semibold">Site Web :</span> {ticket.user?.url || '-'}</div>
+                    <div><span className="font-semibold">Site Web :</span> {ticket.website?.url || '-'}</div>
                     <div><span className="font-semibold">Date de création :</span> {new Date(ticket.createdAt).toLocaleString('fr-FR')}</div>
-                    <div><span className="font-semibold">Date de mise à jour :</span> {new Date(ticket.updatedAt).toLocaleString('fr-FR')}</div>
+                    {isAdmin &&<div><span className="font-semibold">Date de mise à jour :</span> {new Date(ticket.updatedAt).toLocaleString('fr-FR')}</div>}
                     <div><span className="font-semibold">Catégorie :</span> {ticket.category?.name || '-'}</div>
                     <div><span className="font-semibold">Titre :</span> {ticket.title}</div>
                     <div><span className="font-semibold text-sm">Lien du bug :</span>

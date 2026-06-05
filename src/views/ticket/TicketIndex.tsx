@@ -10,6 +10,7 @@ import type { Ticket } from '@/@types/ticket'
 import TicketForm from './TicketForm'
 import { UserRole } from '@/@types/auth'
 import TicketShow from './TicketShow'
+import ActionButton from '@/components/ui/Button/ActionButton'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -36,10 +37,6 @@ const TicketList = () => {
         fetchTickets()
     }, [])
 
-    const openAddDialog = () => {
-        setSelectedTicket(null)
-        setIsFormOpen(true)
-    }
 
     const openEditDialog = (ticket: Ticket) => {
         setSelectedTicket(ticket)
@@ -96,20 +93,14 @@ const TicketList = () => {
                 const ticket = props.row.original
                 return (
                     <div className="flex gap-3">
-                        <button
-                            className="text-orange-400 hover:text-orange-300 font-semibold text-sm transition-colors"
-                            onClick={() => openEditDialog(ticket)}
-                        >
-                            Modifier
-                        </button>
-                        {isAdmin && (
-                            <button
-                                className="text-violet-400 hover:text-violet-500 font-semibold text-sm transition-colors"
-                                onClick={() => openShowDialog(ticket)}
-                            >
-                                Voir
-                            </button>
-                        )}
+                        <ActionButton 
+                            type="edit" 
+                            onClick={() => openEditDialog(ticket)} 
+                        />
+                            <ActionButton 
+                            type="view" 
+                            onClick={() => openShowDialog(ticket)} 
+                        />
                     </div>
                 )
             }
@@ -130,9 +121,6 @@ const TicketList = () => {
                 <div>
                     <h3>Gestion des Tickets</h3>
                 </div>
-                <Button variant="solid" onClick={openAddDialog}>
-                    + Ouvrir un ticket
-                </Button>
             </div>
 
             <Table>

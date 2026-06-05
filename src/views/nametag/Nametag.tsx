@@ -13,6 +13,7 @@ import { apiNametagIndex, apiNametagDelete } from '@/services/nametagService'
 import type { Nametag } from '@/@types/Nametag'
 import NametagForm from './NametagForm'
 import ColorIndicator from '@/components/ui/Nametag/ColorIndicator'
+import ActionButton from '@/components/ui/Button/ActionButton'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -86,21 +87,17 @@ const Nametag = () => {
             header: 'Actions',
             id: 'actions',
             cell: (props) => {
-                const Nametag = props.row.original
+                const nametag = props.row.original
                 return (
                     <div className="flex gap-4">
-                        <button
-                            className="text-blue-500 hover:underline font-semibold"
-                            onClick={() => openEditDialog(Nametag)}
-                        >
-                            Modifier
-                        </button>
-                        <button
-                            className="text-red-500 hover:underline font-semibold"
-                            onClick={() => handleDelete(Nametag.id)}
-                        >
-                            Supprimer
-                        </button>
+                        <ActionButton 
+                            type="edit" 
+                            onClick={() => openEditDialog(nametag)} 
+                        />
+                        <ActionButton 
+                            type="delete" 
+                            onClick={() => handleDelete(nametag.id)} 
+                        />
                     </div>
                 )
             },
