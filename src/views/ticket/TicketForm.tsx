@@ -45,6 +45,7 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
     const isEditMode = Boolean(initialData?.id)
     const user = useAppSelector((state) => state.auth.user) 
     const isAdmin = user?.authority?.includes(UserRole.admin)
+    const isClient = user?.authority?.includes(UserRole.client)
 
     const [websites, setWebsites] = useState<Website[]>([])
     const [categories, setCategories] = useState<Category[]>([])
@@ -188,6 +189,25 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                             <Field name="bugLink" placeholder='www.mobytic.fr, page "à propos"...' type="text" component={Input} />
                         </FormItem>
 
+                        {isClient && user?.drivePath && (
+                            <div className="mb-6">
+                                <label className="font-semibold mb-2">
+                                    Envoi d'image
+                                </label>
+                                <div className="p-4 bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                        Merci de déposer les captures d'écran du bug ou de la page concernée sur votre espace de stockage d'image dédié :
+                                    </p>
+                                    <a href={user.drivePath} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-semibold text-sm transition-colors">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                        Accéder à mon Drive partagé
+                                    </a>
+                                </div>
+                            </div>
+                        )}
+
                         <FormItem
                             label="Description détaillée"
                             invalid={Boolean(errors.clientComment && touched.clientComment)}
@@ -211,7 +231,7 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                                     </Field>
                                 </FormItem>
 
-                                <FormItem label="Étiquette (Tag)" invalid={Boolean(errors.nametagId && touched.nametagId)} errorMessage={errors.nametagId as string}>
+                                <FormItem label="Nametag" invalid={Boolean(errors.nametagId && touched.nametagId)} errorMessage={errors.nametagId as string}>
                                     <Field as="select" name="nametagId" className="w-full p-2 border rounded-md h-10 text-sm dark:bg-gray-700 dark:border-gray-600">
                                         <option value="">Aucune</option>
                                         {nametags.map((tag) => (

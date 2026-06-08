@@ -1,14 +1,11 @@
 import React from 'react'
 
-// 1. DÉCLARATION DES PROPS (Le contrat)
-// On dit à TypeScript : "Pour utiliser cette usine, tu DOIS me fournir un type et un onClick"
+
 interface ActionButtonProps {
     type: 'view' | 'edit' | 'delete'
-    onClick: () => void // onClick est une fonction qui ne renvoie rien
+    onClick: () => void
 }
 
-// 2. LE DICTIONNAIRE (La solution au piège Tailwind)
-// On écrit les classes Tailwind en toutes lettres pour qu'il les trouve.
 const actionConfig = {
     view: {
         text: 'Voir',
@@ -24,12 +21,10 @@ const actionConfig = {
     }
 }
 
-// 3. LE COMPOSANT (L'usine)
-const ActionButton = (props: ActionButtonProps) => {
-    // On extrait les commandes (props) reçues du parent
-    const { type, onClick } = props
 
-    // On va chercher les bonnes couleurs et le bon texte dans le dictionnaire
+const ActionButton = (props: ActionButtonProps) => {
+
+    const { type, onClick } = props
     const config = actionConfig[type]
 
     return (
