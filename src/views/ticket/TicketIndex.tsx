@@ -88,7 +88,29 @@ const TicketList = () => {
             baseColumns.push({
                 header: 'Tag',
                 id: 'nametag',
-                cell: (props) => props.row.original.nametags?.[0]?.name || '-'
+                cell: (props) => {
+                    const tags = props.row.original.nametags || []
+                    if (tags.length === 0) {
+                        return <span className="text-gray-400">-</span>
+                    }
+                    return (
+                        <div className="flex flex-wrap gap-1">
+                            {tags.map((tag) => (
+                                <span 
+                                    key={tag.id}
+                                    className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold tracking-wide border transition-transform hover:scale-105"
+                                    style={{ 
+                                        backgroundColor: `${tag.color}15`,
+                                        borderColor: `${tag.color}40`,
+                                        color: tag.color 
+                                    }}
+                                >
+                                    {tag.name}
+                                </span>
+                            ))}
+                        </div>
+                    )
+                }
             })
         }
 
@@ -174,7 +196,7 @@ const TicketList = () => {
 
 
             {rawTickets.length > 0 && (
-                <div className="flex justify-center mt-5">
+                <div className="flex justify-end mt-5">
                     <Pagination
                         total={rawTickets.length}
                         pageSize={pageSize}

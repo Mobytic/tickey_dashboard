@@ -23,7 +23,7 @@ const TicketShow = ({ ticket }: TicketShowProps) => {
                     <div><span className="font-semibold">Catégorie :</span> {ticket.category?.name || '-'}</div>
                     <div><span className="font-semibold">Titre :</span> {ticket.title}</div>
                     <div><span className="font-semibold text-sm">Lien du bug :</span>
-                        <a href={ticket.bugLink} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-500 hover:underline text-sm">
+                        <a href={ticket.bugLink} target="_blank" rel="noopener noreferrer" className="ml-2 text-purple-500 hover:underline text-sm">
                             {ticket.bugLink}
                         </a>
                     </div>
@@ -59,7 +59,10 @@ const TicketShow = ({ ticket }: TicketShowProps) => {
                         <div><span className="font-semibold">Nom :</span> {ticket.user.lastname} {ticket.user.firstname}</div>
                         <div><span className="font-semibold">Email :</span> {ticket.user.mail}</div>
                         <div><span className="font-semibold">Téléphone :</span> {ticket.user.tel || 'Non renseigné'}</div>
-                        <div><span className="font-semibold">Lien vers le drive :</span> {ticket.user.drivePath || 'Non renseigné'}</div>
+                        <div>
+                            <span className="font-semibold">Lien vers le drive :</span>
+                            <a href={ticket.user.drivePath} className="text-purple-500 hover:underline" target="_blank" rel="noopener noreferrer"> Accéder</a>
+                        </div>
                     </div>
                 </div>
             )}
