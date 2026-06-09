@@ -37,6 +37,7 @@ function useAuth() {
                             lastname: user.lastname,
                             companyName: user.companyName,
                             mail: user.mail,
+                            role: user.role,
                             authority: [user.role],
                             tel: user.tel,
                             drivePath: user.drivePath,
@@ -45,7 +46,15 @@ function useAuth() {
                     )
                 }
                 const redirectUrl = query.get(REDIRECT_URL_KEY)
-                navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
+                if (redirectUrl) {
+                    navigate(redirectUrl)
+                    return { status: 'success', message: 'Bienvenue' }
+                }
+                if (user.role === 'admin') {
+                    navigate('/home')
+                } else {
+                    navigate('/tickets')
+                }
                 return { status: 'success', message: 'Bienvenue !' }
             }
         } catch (errors: any) {

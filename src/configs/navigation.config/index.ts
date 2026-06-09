@@ -13,7 +13,7 @@ const navigationConfig: NavigationTree[] = [
         title: 'Home',
         icon: 'home',
         type: NAV_ITEM_TYPE_ITEM,
-        authority: [],
+        authority: [UserRole.admin],
         subMenu: [],
     },
     {

@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 import authRoute from './authRoute'
 import type { Routes } from '@/@types/routes'
+import { UserRole } from '@/@types/auth'
 
 export const publicRoutes: Routes = [...authRoute]
 
@@ -9,7 +10,7 @@ export const protectedRoutes = [
         key: 'home',
         path: '/home',
         component: lazy(() => import('@/views/Home')),
-        authority: [],
+        authority: [UserRole.admin],
     },
     {
         key: 'ticketsGroup.list',
@@ -27,31 +28,31 @@ export const protectedRoutes = [
         key: 'userGroup.list',
         path: '/users',
         component: lazy(() => import('@/views/auth/index/Index')),
-        authority: [],
+        authority: [UserRole.admin],
     },
     {
         key: 'userGroup.create',
         path: '/users/create',
         component: lazy(() => import('@/views/auth/SignUp/SignUp')),
-        authority: [],
+        authority: [UserRole.admin],
     },
     {
         key: 'paramGroup.nametag',
         path: '/param/nametag',
         component: lazy(() => import('@/views/nametag/Nametag')),
-        authority: [],
+        authority: [UserRole.admin],
     },
     {
         key: 'paramGroup.status',
         path: '/param/status',
         component: lazy(() => import('@/views/status/Status')),
-        authority: [],
+        authority: [UserRole.admin],
     },
     {
         key: 'paramGroup.category',
         path: '/param/category',
         component: lazy(() => import('@/views/category/Category')),
-        authority: [],
+        authority: [UserRole.admin],
     },
     
     
