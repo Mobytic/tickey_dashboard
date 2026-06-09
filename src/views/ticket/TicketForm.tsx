@@ -24,7 +24,9 @@ interface TicketFormProps {
 }
 
 const validationSchema = Yup.object().shape({
-    title: Yup.string().required('Le titre du ticket est obligatoire'),
+    title: Yup.string().required('Le titre du ticket est obligatoire')
+        .min(3, 'Le titre doit contenir au moins 3 caractères')
+        .max(60, 'Le titre peut contenir 50 caractères maximum'),
     bugLink: Yup.string().required('Merci de signaler la page concernée'),
     clientComment: Yup.string()
         .min(25, 'La description doit contenir au moins 25 caractères')
