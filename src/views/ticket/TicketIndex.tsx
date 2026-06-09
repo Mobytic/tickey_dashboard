@@ -1,8 +1,15 @@
 import { useState, useEffect, useMemo } from 'react'
-import { flexRender, getCoreRowModel, useReactTable, ColumnDef } from '@tanstack/react-table'
+import { 
+    flexRender, 
+    getCoreRowModel, 
+    getPaginationRowModel,
+    useReactTable, 
+    ColumnDef 
+} from '@tanstack/react-table'
 import Table from '@/components/ui/Table'
 import Button from '@/components/ui/Button'
 import Dialog from '@/components/ui/Dialog'
+import Pagination from '@/components/ui/Pagination'
 import { Notification, toast } from '@/components/ui'
 import { useAppSelector } from '@/store'
 import { apiTicketIndex } from '@/services/ticketService'
@@ -36,7 +43,6 @@ const TicketList = () => {
     useEffect(() => {
         fetchTickets()
     }, [])
-
 
     const openEditDialog = (ticket: Ticket) => {
         setSelectedTicket(ticket)
@@ -97,7 +103,7 @@ const TicketList = () => {
                             type="edit" 
                             onClick={() => openEditDialog(ticket)} 
                         />
-                            <ActionButton 
+                        <ActionButton 
                             type="view" 
                             onClick={() => openShowDialog(ticket)} 
                         />
@@ -113,7 +119,16 @@ const TicketList = () => {
         data: rawTickets,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        initialState: {
+            pagination: {
+                pageSize: 10,
+                pageIndex: 0,
+            },
+        },
     })
+
+    const { pageIndex, pageSize } = table.getState().pagination
 
     return (
         <div>
@@ -135,6 +150,7 @@ const TicketList = () => {
                         </Tr>
                     ))}
                 </THead>
+
                 <TBody>
                     {table.getRowModel().rows.length > 0 ? (
                         table.getRowModel().rows.map((row) => (
@@ -155,6 +171,18 @@ const TicketList = () => {
                     )}
                 </TBody>
             </Table>
+
+
+            {rawTickets.length > 0 && (
+                <div className="flex justify-center mt-5">
+                    <Pagination
+                        total={rawTickets.length}
+                        pageSize={pageSize}
+                        currentPage={pageIndex + 1}
+                        onChange={(page) => table.setPageIndex(page - 1)}
+                    />
+                </div>
+            )}
 
             <Dialog isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} onRequestClose={() => setIsFormOpen(false)} width={800}>
                 <div className="p-4 max-h-[80vh] overflow-y-auto">

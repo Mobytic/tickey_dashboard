@@ -12,7 +12,7 @@ const DroppableWrapper = ({ id, children }: DroppableWrapperProps) => {
                 <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className={`min-h-[200px] p-2 rounded-md ${
+                    className={`min-h-[600px] p-2 rounded-md ${
                         snapshot.isDraggingOver ? 'bg-gray-200 dark:bg-gray-600' : 'bg-gray-100 dark:bg-gray-800'
                     }`}
                 >
