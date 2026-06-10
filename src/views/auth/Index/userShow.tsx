@@ -11,7 +11,7 @@ const UserShow = ({ user }: UserShowProps) => {
     return (
         <div className="space-y-6">
             <div>
-                <h5 className="mb-4 text-gray-800 dark:text-gray-100 border-b pb-2">Informations de l'utilisateur</h5>
+                <h4 className="mb-4 text-gray-800 dark:text-gray-100 border-b pb-2">Informations de l'utilisateur</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div><span className="font-semibold">Nom :</span> {user.firstname} {user.lastname}</div>
                     <div><span className="font-semibold">Entreprise :</span> {user.companyName}</div>
@@ -33,9 +33,9 @@ const UserShow = ({ user }: UserShowProps) => {
             </div>
             {user.websites && user.websites.length > 0 && (
                 <div>
-                    <h5 className="mb-4 text-gray-800 dark:text-gray-100 border-b pb-2 mt-6">
+                    <h4 className="mb-4 text-gray-800 dark:text-gray-100 border-b pb-2 mt-6">
                         Sites Web
-                    </h5>
+                    </h4>
                     <ul className="list-disc pl-5 text-sm space-y-1">
                         {user.websites.map((site) => (
                             <li key={site.id}>

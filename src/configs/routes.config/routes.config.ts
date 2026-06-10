@@ -21,7 +21,7 @@ export const protectedRoutes = [
     {
         key: 'ticketsGroup.create',
         path: '/tickets/create',
-        component: lazy(() => import('@/views/ticket/TicketForm')),
+        component: lazy(() => import('@/views/ticket/TicketCreation')),
         authority: [],
     },
     {
@@ -53,6 +53,17 @@ export const protectedRoutes = [
         path: '/param/category',
         component: lazy(() => import('@/views/category/Category')),
         authority: [UserRole.admin],
+    },
+    {
+        path: '*',
+        component: lazy(() => import('@/views/page/NotFound')),
+        authority: [],
+    },
+    {
+        key: 'accessDenied',
+        path: '/access-denied',
+        component: lazy(() => import('@/views/auth/AccessDenied')),
+        authority: [],
     },
     
     

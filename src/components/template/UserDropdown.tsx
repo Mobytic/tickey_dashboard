@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import { HiOutlineLogout, HiOutlineUser } from 'react-icons/hi'
 import type { CommonProps } from '@/@types/common'
 
+
 type DropdownList = {
     label: string
     path: string
@@ -68,6 +69,16 @@ const _UserDropdown = ({ className }: CommonProps) => {
                     </Dropdown.Item>
                 ))}
                 {/* <Dropdown.Item variant="divider" /> */}
+                <Dropdown.Item
+                    eventKey="Sign Out"
+                    className="gap-2"
+                    onClick={signOut}
+                >
+                    <span className="text-xl opacity-50">
+                        <HiOutlineLogout />
+                    </span>
+                    <span>Se déconnecter</span>
+                </Dropdown.Item>
                 <Dropdown.Item
                     eventKey="Sign Out"
                     className="gap-2"

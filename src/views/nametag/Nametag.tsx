@@ -114,7 +114,7 @@ const Nametag = () => {
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h3>Gestion des Nametags</h3>
+                <h2>Gestion des Nametags</h2>
                 <Button variant="solid" onClick={openAddDialog}>
                     + Ajouter un Nametag
                 </Button>
@@ -151,9 +151,9 @@ const Nametag = () => {
                 onRequestClose={() => setDialogIsOpen(false)}
             >
                 <div className="p-4">
-                    <h5 className="mb-4">
+                    <h3 className="mb-4">
                         {selectedNametag ? 'Modifier le Nametag' : 'Nouveau Nametag'}
-                    </h5>
+                    </h3>
                     
                     <NametagForm 
                         initialData={selectedNametag} 

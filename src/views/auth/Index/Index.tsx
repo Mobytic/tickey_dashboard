@@ -135,7 +135,7 @@ const UserIndex = () => {
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h3>Liste des utilisateurs</h3>
+                <h2>Liste des utilisateurs</h2>
             </div>
             <Table>
                 <THead>
@@ -199,18 +199,16 @@ const UserIndex = () => {
                 </TBody>
             </Table>
             
-            <Dialog isOpen={dialogIsOpen} onClose={closeDialog} onRequestClose={closeDialog}>
-                <div className="flex flex-col h-full justify-between">
-                    <h4 className="mb-4">Modifier l'utilisateur</h4>
-                    <div className="max-h-[70vh] overflow-y-auto">
-                        <SignUpForm initialData={selectedUser} onSuccess={closeDialog}/>
-                    </div>
+            <Dialog isOpen={dialogIsOpen} onClose={closeDialog} onRequestClose={closeDialog} width={800}>
+                <div className="p-4 max-h-[80vh] overflow-y-auto">
+                    <h3 className="mb-4">Modifier l'utilisateur</h3>
+                    <SignUpForm initialData={selectedUser} onSuccess={closeDialog}/>
                 </div>
             </Dialog>
 
             <Dialog isOpen={isShowOpen} onClose={() => setIsShowOpen(false)} onRequestClose={() => setIsShowOpen(false)} width={700}>
                 <div className="p-4">
-                    <h4 className="mb-5">Détails de l'utilisateur #{selectedUser?.id}</h4>
+                    <h3 className="mb-5">Détails de l'utilisateur #{selectedUser?.id}</h3>
                     {selectedUser && <UserShow user={selectedUser} />}
                 </div>
             </Dialog>

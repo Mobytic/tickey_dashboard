@@ -156,7 +156,7 @@ const TicketList = () => {
         <div>
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h3>Gestion des Tickets</h3>
+                    <h2>Gestion des Tickets</h2>
                 </div>
             </div>
 
@@ -208,14 +208,14 @@ const TicketList = () => {
 
             <Dialog isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} onRequestClose={() => setIsFormOpen(false)} width={800}>
                 <div className="p-4 max-h-[80vh] overflow-y-auto">
-                    <h4 className="mb-4">{selectedTicket ? 'Modifier le ticket' : 'Créer un nouveau ticket'}</h4>
+                    <h3 className="mb-4">{selectedTicket ? 'Modifier le ticket' : 'Créer un nouveau ticket'}</h3>
                     <TicketForm initialData={selectedTicket} onSuccess={closeFormAndRefresh} />
                 </div>
             </Dialog>
 
             <Dialog isOpen={isShowOpen} onClose={() => setIsShowOpen(false)} onRequestClose={() => setIsShowOpen(false)} width={700}>
                 <div className="p-4">
-                    <h4 className="mb-5">Détails du Ticket #{selectedTicket?.id}</h4>
+                    <h3 className="mb-5">Détails du Ticket #{selectedTicket?.id}</h3>
                     {selectedTicket && <TicketShow ticket={selectedTicket} />}
                 </div>
             </Dialog>

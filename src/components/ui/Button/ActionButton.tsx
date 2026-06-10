@@ -9,15 +9,15 @@ interface ActionButtonProps {
 const actionConfig = {
     view: {
         text: 'Voir',
-        colorClass: 'text-orange-400 hover:text-orange-300',
+        colorClass: 'text-amber-400 hover:text-amber-600',
     },
     edit: {
         text: 'Modifier',
-        colorClass: 'text-purple-500 hover:text-purple-700',
+        colorClass: 'text-indigo-400 hover:text-indigo-600',
     },
     delete: {
         text: 'Supprimer',
-        colorClass: 'text-red-500 hover:text-red-700',
+        colorClass: 'text-red-500 hover:text-red-600',
     }
 }
 

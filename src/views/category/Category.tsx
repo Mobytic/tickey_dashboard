@@ -102,7 +102,7 @@ const Category = () => {
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h3>Gestion des Catégories</h3>
+                <h2>Gestion des Catégories</h2>
                 <Button variant="solid" onClick={openAddDialog}>
                     + Ajouter une catégorie
                 </Button>
@@ -139,9 +139,9 @@ const Category = () => {
                 onRequestClose={() => setDialogIsOpen(false)}
             >
                 <div className="p-4">
-                    <h5 className="mb-4">
+                    <h3 className="mb-4">
                         {selectedCategory ? 'Modifier la catégorie' : 'Nouvelle catégorie'}
-                    </h5>
+                    </h3>
                     
                     <CategoryForm 
                         initialData={selectedCategory} 

@@ -108,16 +108,16 @@ const Home = () => {
     return (
         <div className="px-4 py-1">
             <div className="flex justify-between items-center mb-5">
-                <h3>Tableau de bord</h3>
+                <h2>Tableau de bord</h2>
             </div>
 
             <DragDropContext onDragEnd={handleDragEnd}>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     {BOARD_COLUMNS.map((column) => (
                         <div key={column.id} className="flex flex-col h-full">
-                            <h5 className="mb-4 text-gray-700 dark:text-gray-200 border-b pb-2">
+                            <h3 className="mb-4 text-gray-700 dark:text-gray-200 border-b pb-2">
                                 {column.title} <span className="text-xs text-gray-400 font-normal ml-2">({columns[column.id]?.length || 0})</span>
-                            </h5>
+                            </h3>
                             <DroppableWrapper id={column.id}>
                                 {columns[column.id]?.map((ticket, index) => (
                                     <DraggableWrapper key={ticket.id} id={String(ticket.id)} index={index}>

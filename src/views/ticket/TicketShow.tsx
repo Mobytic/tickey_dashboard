@@ -13,7 +13,7 @@ const TicketShow = ({ ticket }: TicketShowProps) => {
     return (
         <div className="space-y-6">
             <div>
-                <h5 className="mb-4 text-gray-800 dark:text-gray-100 border-b pb-2">Informations du Ticket</h5>
+                <h4 className="mb-4 text-gray-800 dark:text-gray-100 border-b pb-2">Informations du Ticket</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     {isAdmin && <div><span className="font-semibold">Tag :</span> {ticket.nametags?.[0]?.name || '-'}</div>}
                     <div><span className="font-semibold">Statut :</span> {ticket.status?.name || '-'}</div>
@@ -54,7 +54,7 @@ const TicketShow = ({ ticket }: TicketShowProps) => {
 
             {isAdmin && ticket.user && (
                 <div>
-                    <h5 className="mb-4 text-gray-800 dark:text-gray-100 border-b pb-2">Informations Utilisateur</h5>
+                    <h4 className="mb-4 text-gray-800 dark:text-gray-100 border-b pb-2">Informations Utilisateur</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         <div><span className="font-semibold">Nom :</span> {ticket.user.lastname} {ticket.user.firstname}</div>
                         <div><span className="font-semibold">Email :</span> {ticket.user.mail}</div>

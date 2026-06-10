@@ -8,6 +8,7 @@ import type { Nametag } from '@/@types/nametag'
 import TicketForm from '@/views/ticket/TicketForm'
 import TicketShow from '@/views/ticket/TicketShow'
 import { HiOutlineEye, HiOutlinePencil } from 'react-icons/hi'
+import NametagBadge from '../Nametag/NametagBadge'
 
 interface TicketCardProps {
     ticket: Ticket
@@ -99,9 +100,9 @@ const TicketCard = ({ ticket, onRefresh }: TicketCardProps) => {
                 <span className="text-gray-400 dark:text-gray-500">{formattedDate}</span>
             </div>
 
-            <h5 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug line-clamp-2">
+            <p className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug line-clamp-2">
                 {ticket.title}
-            </h5>
+            </p>
 
             {ticket.teamComment && (
                 <p className="text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-850 px-2 py-1.5 rounded border border-gray-200 dark:border-gray-750 mb-3 italic">
@@ -112,18 +113,11 @@ const TicketCard = ({ ticket, onRefresh }: TicketCardProps) => {
 
             <div className="flex flex-wrap items-center gap-1.5 mb-3">
                 {ticket.nametags?.map((tag) => (
-                    <span 
-                        key={tag.id}
-                        className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold tracking-wide border transition-transform hover:scale-105"
-                        style={{ 
-                            backgroundColor: `${tag.color}15`,
-                            borderColor: `${tag.color}40`,
-                            color: tag.color 
-                        }}
-                    >
-                        <span className="w-1.5 h-1.5 mr-1 rounded-full" style={{ backgroundColor: tag.color }} />
-                        {tag.name}
-                    </span>
+                    <NametagBadge 
+                        key={tag.id} 
+                        tag={tag} 
+                        onRemove={handleToggleNametag} 
+                    />
                 ))}
 
                 {/* BOUTON GESTION DES TAGS (+ Dropdown) */}
@@ -189,18 +183,18 @@ const TicketCard = ({ ticket, onRefresh }: TicketCardProps) => {
 
             <Dialog isOpen={isViewOpen} onClose={() => setIsViewOpen(false)} onRequestClose={() => setIsViewOpen(false)}width={700}>
                 <div className="p-5 max-h-[80vh] overflow-y-auto">
-                    <h5 className="mb-4 text-lg font-bold border-b pb-2 text-gray-900 dark:text-gray-100">
+                    <h3 className="mb-4 text-lg font-bold border-b pb-2 text-gray-900 dark:text-gray-100">
                         Détails du Ticket #{ticket.id}
-                    </h5>
+                    </h3>
                     <TicketShow ticket={ticket} />
                 </div>
             </Dialog>
 
             <Dialog isOpen={isEditOpen} onClose={() => setIsEditOpen(false)} onRequestClose={() => setIsEditOpen(false)}width={800}>
                 <div className="p-5 max-h-[80vh] overflow-y-auto">
-                    <h5 className="mb-4 text-lg font-bold border-b pb-2 text-gray-900 dark:text-gray-100">
+                    <h3 className="mb-4 text-lg font-bold border-b pb-2 text-gray-900 dark:text-gray-100">
                         Modifier le ticket
-                    </h5>
+                    </h3>
                     <TicketForm initialData={ticket} onSuccess={() => {
                             setIsEditOpen(false)
                             onRefresh()

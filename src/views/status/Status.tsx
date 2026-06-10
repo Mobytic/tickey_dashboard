@@ -105,7 +105,7 @@ const Status = () => {
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h3>Gestion des Statuts</h3>
+                <h2>Gestion des Statuts</h2>
                 <Button variant="solid" onClick={openAddDialog}>
                     + Ajouter un statut
                 </Button>
@@ -141,9 +141,9 @@ const Status = () => {
                 onRequestClose={() => setDialogIsOpen(false)}
             >
                 <div className="p-4">
-                    <h5 className="mb-4">
+                    <h3 className="mb-4">
                         {selectedTicketStatus ? 'Modifier le statut' : 'Nouveau statut'}
-                    </h5>
+                    </h3>
                     
                     <StatusForm 
                         initialData={selectedTicketStatus} 
