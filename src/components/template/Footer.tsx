@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import Container from '@/components/shared/Container'
 import { APP_NAME } from '@/constants/app.constant'
 import { PAGE_CONTAINER_GUTTER_X } from '@/constants/theme.constant'
+import { Link } from 'react-router-dom'
 
 export type FooterPageContainerType = 'gutterless' | 'contained'
 
@@ -17,21 +18,20 @@ const FooterContent = () => {
                 <span className="font-semibold text-indigo-600">- {`${APP_NAME}`}
                     </span> Tous droits réservés</span>
             <div className="">
-                <a
-                    className="text-gray"
-                    href="/#"
-                    onClick={(e) => e.preventDefault()}
+                <Link
+                    className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors"
+                    to="/privacyPolicy"
                 >
                     Mentions légales
-                </a>
-                <span className="mx-2 text-muted"> | </span>
+                </Link>
+                {/*<span className="mx-2 text-muted"> | </span>
                 <a
                     className="text-gray"
                     href="/#"
                     onClick={(e) => e.preventDefault()}
                 >
                     Politique de confidentialité
-                </a>
+                </a>*/}
             </div>
         </div>
     )

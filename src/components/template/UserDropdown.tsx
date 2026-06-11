@@ -4,8 +4,9 @@ import withHeaderItem from '@/utils/hoc/withHeaderItem'
 import useAuth from '@/utils/hooks/useAuth'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import { HiOutlineLogout, HiOutlineUser } from 'react-icons/hi'
+import { HiOutlineLogout, HiOutlineUser, HiOutlineMoon } from 'react-icons/hi'
 import type { CommonProps } from '@/@types/common'
+import ModeSwitcher from './ThemeConfigurator/ModeSwitcher'
 
 
 type DropdownList = {
@@ -24,7 +25,6 @@ const _UserDropdown = ({ className }: CommonProps) => {
         <div className={classNames(className, 'flex items-center gap-2')}>
             <Avatar size={32} shape="circle" icon={<HiOutlineUser />} />
             <div className="hidden md:block">
-                {/* <div className="text-xs capitalize">admin</div> */}
                 <div className="font-bold">{user?.firstname} {user?.lastname}</div>
             </div>
         </div>
@@ -68,17 +68,26 @@ const _UserDropdown = ({ className }: CommonProps) => {
                         </Link>
                     </Dropdown.Item>
                 ))}
-                {/* <Dropdown.Item variant="divider" /> */}
+
                 <Dropdown.Item
-                    eventKey="Sign Out"
-                    className="gap-2"
-                    onClick={signOut}
+                    eventKey="Dark Mode"
+                    className="gap-2 flex justify-between items-center"
                 >
-                    <span className="text-xl opacity-50">
-                        <HiOutlineLogout />
-                    </span>
-                    <span>Se déconnecter</span>
+                    <div className="flex items-center gap-2">
+                        <span className="text-xl opacity-50">
+                            <HiOutlineMoon />
+                        </span>
+                        <span>Mode sombre</span>
+                    </div>
+                    
+                    {/* LE PARE-FEU EST ICI */}
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <ModeSwitcher />
+                    </div>
+                    
                 </Dropdown.Item>
+
+                {/* <Dropdown.Item variant="divider" /> */}
                 <Dropdown.Item
                     eventKey="Sign Out"
                     className="gap-2"

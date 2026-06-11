@@ -92,21 +92,21 @@ const TicketCard = ({ ticket, onRefresh }: TicketCardProps) => {
     }, [])
 
     return (
-        <div className="bg-white dark:bg-gray-800 p-3 mb-2 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gray-300 dark:hover:border-gray-500 transition-all cursor-grab active:cursor-grabbing group relative">
+        <div className="bg-white dark:bg-gray-900 p-3 mb-2 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gray-300 dark:hover:border-gray-500 transition-all cursor-grab active:cursor-grabbing group relative">
             <div className="flex justify-between items-center mb-2.5 text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
-                <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded">
+                <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded">
                     {ticket.category?.name || 'Général'}
                 </span>
                 <span className="text-gray-400 dark:text-gray-500">{formattedDate}</span>
             </div>
 
-            <p className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug line-clamp-2">
+            <p className="text-base font-semibold text-gray-900 dark:text-gray-300 mb-2 leading-snug line-clamp-2">
                 {ticket.title}
             </p>
 
             {ticket.teamComment && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-850 px-2 py-1.5 rounded border border-gray-200 dark:border-gray-750 mb-3 italic">
-                    <span className="font-semibold not-italic block text-[10px] text-gray-500 mb-0.5 uppercase">Note équipe :</span>
+                <p className="text-xs text-gray-500 dark:text-gray-300 bg-gray-50 px-2 py-1.5 rounded border border-gray-200 dark:border-gray-800 mb-3 italic dark:bg-gray-700">
+                    <span className="font-semibold not-italic block text-[10px] text-gray-500 mb-0.5 uppercase dark:text-gray-300">Note équipe :</span>
                     {truncateComment(ticket.teamComment)}
                 </p>
             )}
@@ -124,7 +124,7 @@ const TicketCard = ({ ticket, onRefresh }: TicketCardProps) => {
                 <div className="relative" ref={dropdownRef}>
                     <button 
                         onClick={handleOpenTagMenu}
-                        className="w-5 h-5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center text-xs font-bold transition-colors"
+                        className="w-5 h-5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center justify-center text-xs font-bold transition-colors"
                         title="Gérer les nametags"
                     >
                         +
@@ -158,7 +158,7 @@ const TicketCard = ({ ticket, onRefresh }: TicketCardProps) => {
             {/* Zone footer du ticket */}
             <div className="flex justify-between items-center pt-1.5 border-t border-gray-100 dark:border-gray-700 text-[11px] text-gray-400">
                 <div className="flex items-center gap-1">
-                    <span className="truncate max-w-[200px] text-gray-500 lowercase normal-case">
+                    <span className="truncate max-w-[200px] text-gray-500 lowercase normal-case dark:text-gray-400">
                     {ticket.website?.url.replace('https://', '').replace('http://', '')}
                     </span>
                 </div>
@@ -166,14 +166,14 @@ const TicketCard = ({ ticket, onRefresh }: TicketCardProps) => {
                 <div className="flex gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
                     <button 
                         onClick={(e) => { e.stopPropagation(); setIsViewOpen(true); }}
-                        className="text-gray-500 hover:text-orange-400 dark:text-gray-400 dark:hover:text-orange-400 p-1 rounded-md hover:bg-orange-50 dark:hover:bg-orange-950/30 transition-colors"
+                        className="text-gray-500 hover:text-orange-400 dark:text-gray-300 dark:hover:text-orange-400 p-1 rounded-md hover:bg-orange-50 dark:hover:bg-orange-950/30 transition-colors"
                         title="Voir le ticket"
                     >
                         <HiOutlineEye className="text-xl" />
                     </button>
                     <button 
                         onClick={(e) => { e.stopPropagation(); setIsEditOpen(true); }}
-                        className="text-gray-500 hover:text-purple-500 dark:text-gray-400 dark:hover:text-purple-500 p-1 rounded-md hover:bg-purple-50 dark:hover:bg-purple-950/30 transition-colors"
+                        className="text-gray-500 hover:text-purple-500 dark:text-gray-300 dark:hover:text-purple-500 p-1 rounded-md hover:bg-purple-50 dark:hover:bg-purple-950/30 transition-colors"
                         title="Modifier le ticket"
                     >
                         <HiOutlinePencil className="text-xl" />

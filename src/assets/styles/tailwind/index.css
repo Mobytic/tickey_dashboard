@@ -15,7 +15,7 @@
 
   h2,
   .h2 {
-    @apply text-3xl font-medium bg-gradient-to-r from-amber-400 to-indigo-400 bg-clip-text text-transparent dark:text-gray-100;
+    @apply text-3xl font-medium bg-gradient-to-r from-amber-400 to-indigo-400 bg-clip-text text-transparent ;
   }
 
   h3,

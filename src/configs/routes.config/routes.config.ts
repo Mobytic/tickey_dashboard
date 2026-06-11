@@ -55,6 +55,12 @@ export const protectedRoutes = [
         authority: [UserRole.admin],
     },
     {
+        key: 'privacyPolicy',
+        path: 'privacyPolicy',
+        component: lazy(() => import('@/views/page/Privacy&Policy')),
+        authority: [UserRole.admin],
+    },
+    {
         path: '*',
         component: lazy(() => import('@/views/page/NotFound')),
         authority: [],
