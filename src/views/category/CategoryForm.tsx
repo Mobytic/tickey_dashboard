@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button'
 import { Notification, toast } from '@/components/ui'
 import { Field, Form, Formik, FormikState } from 'formik'
 import * as Yup from 'yup'
-import { apiCategoryCreate, apiCategoryUpdate } from '@/services/categoryService'
+import { apiCategoryCreate, apiCategoryUpdate } from '@/services/CategoryService'
 import type { Category, CategoryRequest } from '@/@types/category'
 
 

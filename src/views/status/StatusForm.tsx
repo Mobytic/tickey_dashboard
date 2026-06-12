@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button'
 import { Notification, toast } from '@/components/ui'
 import { Field, Form, Formik, FormikState } from 'formik'
 import * as Yup from 'yup'
-import { apiTicketStatusCreate, apiTicketStatusUpdate } from '@/services/ticketStatusService'
+import { apiTicketStatusCreate, apiTicketStatusUpdate } from '@/services/TicketStatusService'
 import type { TicketStatus, TicketStatusRequest } from '@/@types/TicketStatus'
 
 
