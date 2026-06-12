@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import useAuth from '@/utils/hooks/useAuth'
 import type { CommonProps } from '@/@types/common'
 import { Notification, toast } from '@/components/ui'
-import { apiAuthUpdate } from '@/services/authService'
+import { apiAuthUpdate } from '@/services/AuthService'
 
 interface SignUpFormProps extends CommonProps {
     disableSubmit?: boolean

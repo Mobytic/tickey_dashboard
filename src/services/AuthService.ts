@@ -12,7 +12,6 @@ import type {
     UserListResponse,
 } from '@/@types/auth'
 import type { WebsiteListResponse } from '@/@types/website'
-import type { MessageResponse } from '@/@types/common'
 
 export async function apiSignIn(data: SignInCredential) {
     return ApiService.fetchData<SignInResponse>({

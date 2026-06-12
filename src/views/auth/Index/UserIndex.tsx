@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-table'
 import type { ColumnDef, ColumnSort } from '@tanstack/react-table'
 import type { User } from '@/@types/auth'
-import { apiUserIndex } from '@/services/authService'
+import { apiUserIndex } from '@/services/AuthService'
 import Dialog from '@/components/ui/Dialog'
 import SignUpForm from '@/views/auth/SignUp/SignUpForm'
 import ActionButton from '@/components/ui/Button/ActionButton'
