@@ -17,11 +17,11 @@ interface ForgotPasswordFormProps extends CommonProps {
 }
 
 type ForgotPasswordFormSchema = {
-    email: string
+    mail: string
 }
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string().required('Veuillez entrer votre mail'),
+    mail: Yup.string().required('Veuillez entrer votre mail'),
 })
 
 const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
@@ -77,7 +77,7 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
             )}
             <Formik
                 initialValues={{
-                    email: 'admin@mail.com',
+                    mail: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -93,13 +93,13 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
                         <FormContainer>
                             <div className={emailSent ? 'hidden' : ''}>
                                 <FormItem
-                                    invalid={errors.email && touched.email}
-                                    errorMessage={errors.email}
+                                    invalid={errors.mail && touched.mail}
+                                    errorMessage={errors.mail}
                                 >
                                     <Field
                                         type="email"
                                         autoComplete="off"
-                                        name="email"
+                                        name="mail"
                                         placeholder="Email"
                                         component={Input}
                                     />
@@ -111,11 +111,11 @@ const ForgotPasswordForm = (props: ForgotPasswordFormProps) => {
                                 variant="solid"
                                 type="submit"
                             >
-                                {emailSent ? 'Resend Email' : 'Send Email'}
+                                {emailSent ? 'Renvoyer le mail' : 'Envoyer'}
                             </Button>
                             <div className="mt-4 text-center">
                                 <span>Retour à </span>
-                                <ActionLink to={signInUrl}>se connecter</ActionLink>
+                                <ActionLink to={signInUrl}> se connecter</ActionLink>
                             </div>
                         </FormContainer>
                     </Form>

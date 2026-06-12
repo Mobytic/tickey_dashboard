@@ -70,6 +70,7 @@ export type SignOutResponse = {
 
 export type ResetPassword = {
     password: string
+    token: string
 }
 
 export type UpdateProfileRequest = {

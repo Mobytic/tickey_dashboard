@@ -6,7 +6,7 @@ import PasswordInput from '@/components/shared/PasswordInput'
 import ActionLink from '@/components/shared/ActionLink'
 import { apiResetPassword } from '@/services/AuthService'
 import useTimeOutMessage from '@/utils/hooks/useTimeOutMessage'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom' // <-- MODIFICATION ICI : Ajout de useSearchParams
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import type { CommonProps } from '@/@types/common'
@@ -34,10 +34,11 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
     const { disableSubmit = false, className, signInUrl = '/sign-in' } = props
 
     const [resetComplete, setResetComplete] = useState(false)
-
     const [message, setMessage] = useTimeOutMessage()
-
     const navigate = useNavigate()
+
+    const [searchParams] = useSearchParams()
+    const token = searchParams.get('token')
 
     const onSubmit = async (
         values: ResetPasswordFormSchema,
@@ -46,7 +47,8 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
         const { password } = values
         setSubmitting(true)
         try {
-            const resp = await apiResetPassword({ password })
+
+            const resp = await apiResetPassword({ password, token: token || '' })
             if (resp.data) {
                 setSubmitting(false)
                 setResetComplete(true)
@@ -69,7 +71,7 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
             <div className="mb-6">
                 {resetComplete ? (
                     <>
-                        <h3 className="mb-1">Réinitialisation faites.</h3>
+                        <h3 className="mb-1">Réinitialisation faite.</h3>
                         <p>Votre mot de passe a été réinitialisé.</p>
                     </>
                 ) : (
@@ -88,8 +90,8 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
             )}
             <Formik
                 initialValues={{
-                    password: '123Qwe1',
-                    confirmPassword: '123Qwe1',
+                    password: '',
+                    confirmPassword: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -141,8 +143,8 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
                                         type="submit"
                                     >
                                         {isSubmitting
-                                            ? 'Submiting...'
-                                            : 'Submit'}
+                                            ? 'Soumission...'
+                                            : 'Valider'}
                                     </Button>
                                 </>
                             ) : (
@@ -157,7 +159,7 @@ const ResetPasswordForm = (props: ResetPasswordFormProps) => {
                             )}
 
                             <div className="mt-4 text-center">
-                                <span>Retour à</span>
+                                <span>Retour à </span>
                                 <ActionLink to={signInUrl}>se connecter</ActionLink>
                             </div>
                         </FormContainer>

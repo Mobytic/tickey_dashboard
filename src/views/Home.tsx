@@ -4,6 +4,8 @@ import DraggableWrapper from '@/components/ui/dnd/Draggable'
 import DroppableWrapper from '@/components/ui/dnd/Droppable'
 import { apiTicketIndex, apiTicketUpdate } from '@/services/ticketService'
 import { Notification, toast } from '@/components/ui'
+import Dialog from '@/components/ui/Dialog'
+import Button from '@/components/ui/Button'
 import type { Ticket, TicketRequest } from '@/@types/ticket'
 import TicketCard from '@/components/ui/DnD/TicketCard'
 
@@ -21,6 +23,9 @@ const Home = () => {
         '1': [], '2': [], '3': [], '4': []
     })
     const [isLoading, setIsLoading] = useState(true)
+
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+    const [pendingDrop, setPendingDrop] = useState<DropResult | null>(null)
 
     const fetchBoardTickets = async () => {
         try {
@@ -55,12 +60,9 @@ const Home = () => {
         fetchBoardTickets()
     }, [])
 
-    const handleDragEnd = async (result: DropResult) => {
-        const { source, destination, draggableId } = result
-
+    const executeDrop = async (result: DropResult) => {
+        const { source, destination } = result
         if (!destination) return
-
-        if (source.droppableId === destination.droppableId && source.index === destination.index) return
 
         const sourceColId = source.droppableId
         const destColId = destination.droppableId
@@ -103,6 +105,34 @@ const Home = () => {
         }
     }
 
+    const handleDragEnd = (result: DropResult) => {
+        const { source, destination } = result
+
+        if (!destination) return
+        if (source.droppableId === destination.droppableId && source.index === destination.index) return
+
+        if (destination.droppableId === '4' && source.droppableId !== '4') {
+            setPendingDrop(result)    
+            setIsConfirmOpen(true)  
+            return 
+        }
+
+        executeDrop(result)
+    }
+
+    const onConfirmDrop = () => {
+        if (pendingDrop) {
+            executeDrop(pendingDrop)
+        }
+        setIsConfirmOpen(false)
+        setPendingDrop(null)
+    }
+
+    const onCancelDrop = () => {
+        setIsConfirmOpen(false)
+        setPendingDrop(null)
+    }
+
     if (isLoading) return <div className="p-6">Chargement du tableau...</div>
 
     return (
@@ -129,6 +159,29 @@ const Home = () => {
                     ))}
                 </div>
             </DragDropContext>
+
+            <Dialog
+                isOpen={isConfirmOpen}
+                onClose={onCancelDrop}
+                onRequestClose={onCancelDrop}
+            >
+                <div className="p-5">
+                    <h4 className="mb-4">Confirmation d'envoi</h4>
+                    <p>
+                        En déplaçant ce ticket dans la colonne <strong>Fait</strong>, un e-mail automatique sera envoyé au client pour le prévenir que sa demande a été résolue.
+                    </p>
+                    <p className="mt-4">Voulez-vous continuer ?</p>
+                    
+                    <div className="text-right mt-6 flex justify-end gap-3">
+                        <Button variant="plain" onClick={onCancelDrop}>
+                            Annuler
+                        </Button>
+                        <Button variant="solid" color="emerald-600" onClick={onConfirmDrop}>
+                            Oui, classer et envoyer
+                        </Button>
+                    </div>
+                </div>
+            </Dialog>
         </div>
     )
 }
