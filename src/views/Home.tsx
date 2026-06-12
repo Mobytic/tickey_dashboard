@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { DragDropContext, DropResult } from '@hello-pangea/dnd'
 import DroppableWrapper from '@/components/ui/DnD/DroppableWrapper'
-import { apiTicketIndex, apiTicketUpdate } from '@/services/ticketService'
+import { apiTicketIndex, apiTicketUpdate } from '@/services/TicketService'
 import { Notification, toast } from '@/components/ui'
 import Dialog from '@/components/ui/Dialog'
 import Button from '@/components/ui/Button'
