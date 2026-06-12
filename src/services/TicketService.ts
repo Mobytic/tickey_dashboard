@@ -1,6 +1,5 @@
 import ApiService from './ApiService'
 import type {
-    Ticket,
     TicketRequest,
     TicketResponse,
     TicketListResponse,
