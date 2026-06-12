@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button'
 import { Notification, toast } from '@/components/ui'
 import { Field, Form, Formik, FormikState } from 'formik'
 import * as Yup from 'yup'
-import { apiNametagCreate, apiNametagUpdate } from '@/services/nametagService'
+import { apiNametagCreate, apiNametagUpdate } from '@/services/NametagService'
 import type { Nametag, NametagRequest } from '@/@types/nametag'
 
 

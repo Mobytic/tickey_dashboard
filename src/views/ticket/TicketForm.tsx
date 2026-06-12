@@ -10,7 +10,7 @@ import { apiTicketCreate, apiTicketUpdate } from '@/services/TicketService'
 import { apiCategoryIndex } from '@/services/categoryService'
 import { apiWebsiteIndex } from '@/services/AuthService' // Provenant de ton controlleur Auth
 import { apiTicketStatusIndex } from '@/services/ticketStatusService'
-import { apiNametagIndex } from '@/services/nametagService'
+import { apiNametagIndex } from '@/services/NametagService'
 import type { Ticket, TicketRequest } from '@/@types/ticket'
 import type { Category } from '@/@types/category'
 import type { TicketStatus } from '@/@types/ticketStatus'
