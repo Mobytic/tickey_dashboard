@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { DragDropContext, DropResult } from '@hello-pangea/dnd'
-import DroppableWrapper from '@/components/ui/dnd/Droppable'
+import DroppableWrapper from '@/components/ui/DnD/DroppableWrapper'
 import { apiTicketIndex, apiTicketUpdate } from '@/services/ticketService'
 import { Notification, toast } from '@/components/ui'
 import Dialog from '@/components/ui/Dialog'
 import Button from '@/components/ui/Button'
 import type { Ticket, TicketRequest } from '@/@types/ticket'
 import TicketCard from '@/components/ui/DnD/TicketCard'
-import DraggableWrapper from '@/components/ui/DnD/Draggable'
+import DraggableWrapper from '@/components/ui/DnD/DraggableWrapper'
 
 const BOARD_COLUMNS = [
     { id: '1', title: 'À faire' },
