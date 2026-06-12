@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Dialog from '@/components/ui/Dialog'
 import { Notification, toast } from '@/components/ui'
-import { apiTicketUpdate } from '@/services/ticketService'
+import { apiTicketUpdate } from '@/services/TicketService'
 import { apiNametagIndex } from '@/services/nametagService'
 import type { Ticket, TicketRequest } from '@/@types/ticket'
 import type { Nametag } from '@/@types/nametag'
