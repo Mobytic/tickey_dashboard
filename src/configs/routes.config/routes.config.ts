@@ -27,7 +27,7 @@ export const protectedRoutes = [
     {
         key: 'userGroup.list',
         path: '/users',
-        component: lazy(() => import('@/views/auth/index/Index')),
+        component: lazy(() => import('@/views/auth/Index/UserIndex')),
         authority: [UserRole.admin],
     },
     {

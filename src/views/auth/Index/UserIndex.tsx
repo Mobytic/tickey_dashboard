@@ -7,7 +7,6 @@ import {
     useReactTable,
 } from '@tanstack/react-table'
 import type { ColumnDef, ColumnSort } from '@tanstack/react-table'
-import Button from '@/components/ui/Button'
 import type { User } from '@/@types/auth'
 import { apiUserIndex } from '@/services/authService'
 import Dialog from '@/components/ui/Dialog'
