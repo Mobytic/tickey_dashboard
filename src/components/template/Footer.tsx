@@ -24,14 +24,13 @@ const FooterContent = () => {
                 >
                     Mentions légales
                 </Link>
-                {/*<span className="mx-2 text-muted"> | </span>
-                <a
-                    className="text-gray"
-                    href="/#"
-                    onClick={(e) => e.preventDefault()}
+                <span className="mx-2 text-muted"> | </span>
+                <Link
+                    className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors"
+                    to="/cgv"
                 >
-                    Politique de confidentialité
-                </a>*/}
+                    CGV
+                </Link>
             </div>
         </div>
     )
