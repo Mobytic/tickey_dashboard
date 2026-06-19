@@ -10,7 +10,7 @@ import Button from '@/components/ui/Button'
 import Dialog from '@/components/ui/Dialog'
 import { Notification, toast } from '@/components/ui'
 import { apiNametagIndex, apiNametagDelete } from '@/services/NametagService'
-import type { Nametag } from '@/@types/Nametag'
+import type { Nametag } from '@/@types/nametag'
 import NametagForm from './NametagForm'
 import ColorIndicator from '@/components/ui/Nametag/ColorIndicator'
 import ActionButton from '@/components/ui/Button/ActionButton'
@@ -55,7 +55,7 @@ const Nametag = () => {
 
     const handleDelete = async (id: number) => {
 
-        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce nametag ?')) {
+        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce nametag ? Cette action est irréversible.')) {
             try {
                 const response = await apiNametagDelete(id)
                 toast.push(<Notification type="success">{response.data.message}</Notification>, { placement: 'top-end' })

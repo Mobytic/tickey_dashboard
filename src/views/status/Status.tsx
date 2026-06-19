@@ -10,7 +10,7 @@ import Button from '@/components/ui/Button'
 import Dialog from '@/components/ui/Dialog'
 import { Notification, toast } from '@/components/ui'
 import { apiTicketStatusIndex, apiTicketStatusDelete } from '@/services/TicketStatusService'
-import type { TicketStatus } from '@/@types/TicketStatus'
+import type { TicketStatus } from '@/@types/ticketStatus'
 import StatusForm from './StatusForm'
 import ActionButton from '@/components/ui/Button/ActionButton'
 
@@ -54,7 +54,7 @@ const Status = () => {
 
 
     const handleDelete = async (id: number) => {
-        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce statut ?')) {
+        if (window.confirm('Êtes-vous sûr de vouloir supprimer ce statut ? Cette action est irréversible et peut entrainer des conséquences sur le tableau de bord.')) {
             try {
                 const response = await apiTicketStatusDelete(id)
                 toast.push(<Notification type="success">{response.data.message}</Notification>, { placement: 'top-end' })
