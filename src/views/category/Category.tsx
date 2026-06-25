@@ -52,7 +52,7 @@ const Category = () => {
     }
 
     const handleDelete = async (id: number) => {
-        if (window.confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) {
+        if (window.confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ? Cette action est irréversible.')) {
             try {
                 const response = await apiCategoryDelete(id)
                 toast.push(<Notification type="success">{response.data.message}</Notification>, { placement: 'top-end' })

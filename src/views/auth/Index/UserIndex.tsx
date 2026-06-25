@@ -8,11 +8,12 @@ import {
 } from '@tanstack/react-table'
 import type { ColumnDef, ColumnSort } from '@tanstack/react-table'
 import type { User } from '@/@types/auth'
-import { apiUserIndex } from '@/services/AuthService'
+import { apiAuthDelete, apiUserIndex } from '@/services/AuthService'
 import Dialog from '@/components/ui/Dialog'
 import SignUpForm from '@/views/auth/SignUp/SignUpForm'
 import ActionButton from '@/components/ui/Button/ActionButton'
 import UserShow from './userShow'
+import { Notification, toast } from '@/components/ui'
 
 const { Tr, Th, Td, THead, TBody, Sorter } = Table
 
@@ -45,6 +46,18 @@ const UserIndex = () => {
             setData(response.data)
         } catch (error) {
             console.error('Erreur lors de la récupération des utilisateurs', error)
+        }
+    }
+
+    const handleDelete = async (id: number) => {
+        if (window.confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible et entrainera la suppression de ses sites webs et tickets associés')) {
+            try {
+                const response = await apiAuthDelete(id)
+                toast.push(<Notification type="success">{response.data.message}</Notification>, { placement: 'top-end' })
+                fetchUsers()
+            } catch (error) {
+                toast.push(<Notification type="danger">Impossible de supprimer cet utilisateur.</Notification>, { placement: 'top-end' })
+            }
         }
     }
 
@@ -113,6 +126,10 @@ const UserIndex = () => {
                         <ActionButton 
                             type="view" 
                             onClick={() => openShowDialog(user)} 
+                        />
+                        <ActionButton 
+                            type="delete" 
+                            onClick={() => handleDelete(user.id)} 
                         />
                     </div>
                 );

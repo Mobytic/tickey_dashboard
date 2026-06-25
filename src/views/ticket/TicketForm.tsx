@@ -152,7 +152,7 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                             invalid={Boolean(errors.title && touched.title)}
                             errorMessage={errors.title as string}
                         >
-                            <Field type="text" autoComplete="off" name="title" placeholder="Ex: Problème d'accès à la plateforme" component={Input} />
+                            <Field type="text" autoComplete="off" name="title" placeholder="Ex: Problème d'accès à la plateforme, rédaction de contenu..." component={Input} />
                         </FormItem>
 
                         <FormItem
@@ -215,9 +215,9 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                             invalid={Boolean(errors.clientComment && touched.clientComment)}
                             errorMessage={errors.clientComment as string}
                         >
-                            <Field name="clientComment" placeholder="Décrivez votre problème ici...">
+                            <Field name="clientComment">
                                 {({ field }: any) => (
-                                    <textarea {...field} className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" />
+                                    <textarea {...field} placeholder="Merci de décrire votre demande avec le plus de détails possibles afin de faciliter la traitement de votre ticket." className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" />
                                 )}
                             </Field>
                         </FormItem>
@@ -245,15 +245,15 @@ const TicketForm = ({ initialData, onSuccess }: TicketFormProps) => {
                                 <FormItem label="Commentaire de l'équipe" invalid={Boolean(errors.teamComment && touched.teamComment)} errorMessage={errors.teamComment as string}>
                                     <Field name="teamComment">
                                         {({ field }: any) => (
-                                            <textarea {...field} className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" />
+                                            <textarea {...field} className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" placeholder="Visible seulement pas l'équipe admin !" />
                                         )}
                                     </Field>
                                 </FormItem>
 
-                                <FormItem label="Commentaire de cloture" invalid={Boolean(errors.mailComment && touched.mailComment)} errorMessage={errors.mailComment as string}>
+                                <FormItem label="Commentaire de cloture (au client)" invalid={Boolean(errors.mailComment && touched.mailComment)} errorMessage={errors.mailComment as string}>
                                     <Field name="mailComment" placeholder="Remplissez le commentaire qui sera envoyé par mail">
                                         {({ field }: any) => (
-                                            <textarea {...field} className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" />
+                                            <textarea {...field} className="w-full min-h-[100px] p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" placeholder="Sera ajouté dans le contenu du mail envoyé au client automatiquement à la clôture du ticket."  />
                                         )}
                                     </Field>
                                 </FormItem>

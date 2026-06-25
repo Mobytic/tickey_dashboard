@@ -11,6 +11,7 @@ import type {
     SignOutResponse,
     UserListResponse,
 } from '@/@types/auth'
+import { MessageResponse } from '@/@types/common'
 import type { WebsiteListResponse } from '@/@types/website'
 
 export async function apiSignIn(data: SignInCredential) {
@@ -60,6 +61,13 @@ export async function apiAuthUpdate(id: number, data: UpdateProfileRequest) {
     })
 }
 
+export async function apiAuthDelete(id: number) {
+    return ApiService.fetchData<MessageResponse>({
+        url: `auth/${id}`,
+        method: 'delete',
+    })
+}
+
 export async function apiUserIndex() {
     return ApiService.fetchData<UserListResponse>({
         url: 'auth/users',
@@ -73,3 +81,4 @@ export async function apiWebsiteIndex() {
         method: 'get',
     })
 }
+

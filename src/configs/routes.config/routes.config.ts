@@ -58,7 +58,13 @@ export const protectedRoutes = [
         key: 'privacyPolicy',
         path: 'privacyPolicy',
         component: lazy(() => import('@/views/page/Privacy&Policy')),
-        authority: [UserRole.admin],
+        authority: [],
+    },
+    {
+        key: 'cgv',
+        path: 'cgv',
+        component: lazy(() => import('@/views/page/Cgv')),
+        authority: [],
     },
     {
         path: '*',
