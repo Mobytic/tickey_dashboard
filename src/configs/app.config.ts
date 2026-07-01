@@ -9,7 +9,7 @@ export type AppConfig = {
 
 const appConfig: AppConfig = {
     apiPrefix: `${import.meta.env.VITE_API_URL}`,
-    authenticatedEntryPath: '/home',
+    authenticatedEntryPath: '/tickets',
     unAuthenticatedEntryPath: '/sign-in',
     tourPath: '/',
     locale: 'en',
